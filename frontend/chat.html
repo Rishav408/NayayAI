@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chat – NyayaAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { darkMode: 'class', theme: { extend: { colors: { royal: '#1E3A8A', gold: '#D4AF37' }, fontFamily: { sans: ['Inter','sans-serif'], serif: ['Playfair Display','serif'] }, boxShadow: { soft: '0 10px 30px rgba(0,0,0,0.08)' } } } }
+    </script>
+    <script>(function(){const s=localStorage.getItem('theme');if(s==='dark'||(!s&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}})();</script>
+  </head>
+  <style>
+    /* Transparent, hidden scrollbar utility */
+    .ny-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+    .ny-scroll::-webkit-scrollbar { width: 0; height: 0; background: transparent; }
+    .ny-scroll::-webkit-scrollbar-thumb { background: transparent; }
+  </style>
+  <body class="bg-slate-50 text-slate-800 dark:bg-black dark:text-slate-100">
+    <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-black/50 border-b border-slate-200/70 dark:border-slate-800">
+      <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="/frontend/index.html" class="logo-link flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-md bg-gradient-to-br from-royal to-blue-900 text-white grid place-items-center font-serif">⚖️</div>
+          <span class="font-serif text-xl font-bold tracking-wide">NyayaAI</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a class="hover:text-royal dark:hover:text-blue-400 transition" href="/frontend/features.html">Features</a>
+          <a class="text-royal dark:text-blue-300 font-medium" href="/frontend/chat.html">Chat</a>
+          <a class="hover:text-royal dark:hover:text-blue-400 transition" href="/frontend/about.html">About</a>
+          <a class="hover:text-royal dark:hover:text-blue-400 transition" href="/frontend/contact.html">Contact</a>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full border border-slate-300 dark:border-slate-700 px-3 py-1.5 text-sm hover:shadow-soft transition"><span>🌙</span><span class="hidden sm:inline">Theme</span></button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="h-[calc(100vh-4rem)]">
+      <div class="h-full grid grid-cols-12 gap-0 min-h-0">
+        <!-- Sidebar -->
+        <aside class="col-span-12 md:col-span-3 lg:col-span-3 h-full min-h-0 bg-white/80 dark:bg-white/5 border-r border-slate-200 dark:border-slate-800">
+          <div class="h-full flex flex-col">
+            <div class="px-3 py-3 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
+              <div class="font-semibold text-sm">Conversations</div>
+              <button id="newChat" class="inline-flex items-center gap-2 text-xs rounded-full bg-gradient-to-r from-royal to-blue-700 text-white px-3 py-1.5 shadow-soft border border-blue-800/40">➕ <span class="hidden sm:inline">New</span></button>
+            </div>
+            <ul id="historyList" class="flex-1 overflow-y-auto p-3 space-y-2 text-sm"></ul>
+            <div class="p-3 border-t border-slate-200 dark:border-slate-800 grid grid-cols-2 gap-2">
+              <button id="renameChat" class="text-xs rounded-lg border border-slate-300 dark:border-slate-700 px-2 py-1">Rename</button>
+              <button id="deleteChat" class="text-xs rounded-lg border border-slate-300 dark:border-slate-700 px-2 py-1">Delete</button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <section class="col-span-12 md:col-span-9 lg:col-span-9 h-full min-h-0">
+          <div class="h-full flex flex-col min-h-0">
+            <!-- Top bar -->
+            <div class="px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+              <div class="font-medium">Ask NyayaAI</div>
+              <div class="flex items-center gap-3">
+                <button id="testConnection" class="text-xs rounded-lg border border-slate-300 dark:border-slate-700 px-2 py-1">Test</button>
+                <div class="text-xs text-slate-500">Gemini • LangChain • Web Search</div>
+              </div>
+            </div>
+
+            <!-- Messages -->
+            <div id="chatContainer" class="flex-1 overflow-y-auto px-4 py-4 space-y-4 min-h-0 ny-scroll">
+              <div class="text-sm text-slate-500">Start a conversation. Your messages and answers will appear here.</div>
+            </div>
+
+            <!-- Composer -->
+            <div class="px-3 py-2 border-t border-slate-200/70 dark:border-slate-800/70">
+              <form id="chatForm" class="w-full">
+                <div class="rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-black/60 shadow-soft">
+                  <div class="px-3 pt-2">
+                    <textarea id="chatInput" rows="1" placeholder="Type your legal question or ask about uploaded document..." class="w-full bg-transparent focus:outline-none resize-none overflow-y-auto ny-scroll leading-6 min-h-[3rem] max-h-48 text-[15px]" required></textarea>
+                  </div>
+                  <div class="px-2 pb-2 pt-2 flex items-center justify-between">
+                    <div class="flex items-center gap-1 sm:gap-2">
+                      <input type="file" id="fileUpload" accept=".pdf,.txt,.doc,.docx" class="hidden" />
+                      <button type="button" id="fileUploadBtn" title="Upload document" class="text-slate-600 dark:text-slate-300 hover:text-royal dark:hover:text-blue-300 transition-colors p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                      </button>
+                      <button type="button" id="micBtn" title="Voice input (coming soon)" class="text-slate-600 dark:text-slate-300 hover:text-royal dark:hover:text-blue-300 transition-colors p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"><span class="text-xl font-semibold">🎤</span></button>
+                      <button type="button" id="searchToggle" title="Toggle web search" class="text-slate-600 dark:text-slate-300 hover:text-royal dark:hover:text-blue-300 transition-colors p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                      </button>
+                      <span class="hidden sm:inline text-sm font-medium text-slate-600 dark:text-slate-300 ml-1">Tools</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span id="inputCounter" class="text-xs text-slate-400"></span>
+                      <button type="submit" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-royal to-blue-700 text-white shadow-soft border border-blue-800/40">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <!-- File Upload Status / Chip -->
+              <div id="uploadStatus" class="hidden mt-2 text-sm"></div>
+              <div id="uploadedFile" class="hidden mt-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-green-600 dark:text-green-400">✅</span>
+                    <span class="text-sm font-medium text-green-800 dark:text-green-200" id="uploadedFileName"></span>
+                  </div>
+                  <button id="removeFile" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm">Remove</button>
+                </div>
+              </div>
+
+              <div id="chatError" class="hidden mt-3 text-sm text-red-600"></div>
+              <div id="sourcesBar" class="hidden mt-3 text-xs text-slate-500"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer removed per new design -->
+
+    <script src="/frontend/assets/js/main.js"></script>
+  </body>
+  </html>
+
+

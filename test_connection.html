@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NyayaAI Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #1E3A8A;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #1e40af;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 NyayaAI Connection Test</h1>
+        <p>This page tests the connection between the frontend and backend.</p>
+        
+        <div>
+            <button onclick="testHealth()">Test Health Endpoint</button>
+            <button onclick="testChat()">Test Chat Endpoint</button>
+            <button onclick="testSearch()">Test Search Endpoint</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+        const HEALTH_URL = 'http://localhost:5000/health';
+        
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+            results.scrollTop = results.scrollHeight;
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        async function testHealth() {
+            log('🔍 Testing health endpoint...', 'info');
+            
+            try {
+                const response = await fetch(HEALTH_URL, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    mode: 'cors'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Health check successful!\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    log(`❌ Health check failed!\nStatus: ${response.status}\nStatus Text: ${response.statusText}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Health check error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testChat() {
+            log('🔍 Testing chat endpoint...', 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: 'Hello! Are you working correctly?',
+                        session_id: 'test_session'
+                    }),
+                    mode: 'cors'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Chat test successful!\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ Chat test failed!\nStatus: ${response.status}\nError: ${errorText}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Chat test error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testSearch() {
+            log('🔍 Testing search endpoint...', 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE}/search`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: 'What is artificial intelligence?',
+                        search_type: 'simple'
+                    }),
+                    mode: 'cors'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Search test successful!\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ Search test failed!\nStatus: ${response.status}\nError: ${errorText}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Search test error: ${error.message}`, 'error');
+            }
+        }
+        
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            log('🚀 Page loaded. Starting automatic tests...', 'info');
+            setTimeout(() => testHealth(), 1000);
+        });
+    </script>
+</body>
+</html>
