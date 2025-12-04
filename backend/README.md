@@ -71,7 +71,7 @@ The server will start on `http://localhost:5000` by default.
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `GEMINI_API_KEY` | Google Gemini API key (required) | - |
-| `GEMINI_MODEL` | Gemini model to use | `gemini-1.5-flash` |
+| `GEMINI_MODEL` | Gemini model to use | `gemini-2.5-flash` |
 | `GEMINI_TEMPERATURE` | Model creativity (0-1) | `0.7` |
 | `GEMINI_MAX_TOKENS` | Maximum response tokens | `8192` |
 | `DEBUG` | Enable debug mode | `false` |

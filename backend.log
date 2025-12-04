@@ -767,3 +767,530 @@
 2025-10-02 14:55:18,841 - werkzeug - INFO - 127.0.0.1 - - [02/Oct/2025 14:55:18] "GET /health HTTP/1.1" 200 -
 2025-10-02 14:55:39,923 - werkzeug - INFO - 127.0.0.1 - - [02/Oct/2025 14:55:39] "OPTIONS /health HTTP/1.1" 200 -
 2025-10-02 14:55:40,236 - werkzeug - INFO - 127.0.0.1 - - [02/Oct/2025 14:55:40] "GET /health HTTP/1.1" 200 -
+2025-10-08 23:16:29,011 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.40.46:5000
+2025-10-08 23:16:29,012 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-08 23:16:32,377 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:16:32] "[33mGET / HTTP/1.1[0m" 404 -
+2025-10-08 23:16:48,986 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:16:48] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-08 23:16:49,251 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:16:49] "GET /health HTTP/1.1" 200 -
+2025-10-08 23:16:49,783 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:16:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:16:50,108 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:16:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:16:50,367 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:16:50] "GET /health HTTP/1.1" 200 -
+2025-10-08 23:17:49,793 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:17:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:17:50,101 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:17:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:17:58,798 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:17:58] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-08 23:17:59,051 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:17:59] "GET /health HTTP/1.1" 200 -
+2025-10-08 23:18:00,955 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:18:00] "GET /health HTTP/1.1" 200 -
+2025-10-08 23:18:05,452 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:18:05] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-10-08 23:18:05,705 - routes - INFO - Memory management request: clear
+2025-10-08 23:18:05,706 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:18:05] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-10-08 23:18:49,793 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:18:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:18:50,112 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:18:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:19:50,103 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:19:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:19:50,355 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:19:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:20:49,788 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:20:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:20:50,113 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:20:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:21:21,830 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:21:21] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-08 23:21:22,172 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:21:22] "GET /health HTTP/1.1" 200 -
+2025-10-08 23:21:49,805 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:21:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:21:50,122 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:21:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:22:50,087 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:22:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:22:50,342 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:22:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:23:49,788 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:23:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:23:50,101 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:23:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:24:50,104 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:24:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:24:50,373 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:24:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:25:49,776 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:25:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:25:50,109 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:25:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:26:25,836 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:26:25] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-08 23:26:26,165 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:26:26] "GET /health HTTP/1.1" 200 -
+2025-10-08 23:26:49,796 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:26:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:26:50,115 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:26:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:27:49,786 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:27:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:27:50,108 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:27:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:28:50,085 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:28:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:28:50,352 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:28:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:29:49,789 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:29:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:29:50,139 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:29:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:30:49,789 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:30:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:30:50,126 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:30:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:31:29,677 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:31:29] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-08 23:31:30,017 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:31:30] "GET /health HTTP/1.1" 200 -
+2025-10-08 23:31:49,789 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:31:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:31:50,122 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:31:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:32:52,195 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:32:52] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:32:52,468 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:32:52] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:33:49,798 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:33:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:33:50,123 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:33:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:34:49,773 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:34:49] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:34:50,099 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:34:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:35:50,089 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:35:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-08 23:35:50,342 - werkzeug - INFO - 127.0.0.1 - - [08/Oct/2025 23:35:50] "GET /api/status HTTP/1.1" 200 -
+2025-10-10 14:48:37,143 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.40.46:5000
+2025-10-10 14:48:37,143 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-10 14:48:39,777 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:48:39] "[33mGET / HTTP/1.1[0m" 404 -
+2025-10-10 14:48:48,113 - werkzeug - INFO - 192.168.40.46 - - [10/Oct/2025 14:48:48] "[33mGET / HTTP/1.1[0m" 404 -
+2025-10-10 14:48:48,185 - werkzeug - INFO - 192.168.40.46 - - [10/Oct/2025 14:48:48] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-10 14:49:11,559 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:49:11] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:49:11,810 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:49:11] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:49:12,774 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:49:12] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:49:15,278 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:49:15] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:49:20,638 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:49:20] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-10-10 14:49:20,943 - routes - INFO - Memory management request: clear
+2025-10-10 14:49:20,944 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:49:20] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-10-10 14:49:58,144 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:49:58] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-10-10 14:49:58,448 - routes - INFO - Memory management request: clear
+2025-10-10 14:49:58,449 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:49:58] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-10-10 14:53:35,135 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:53:35] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:53:35,383 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:53:35] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:57:04,695 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:57:04] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:57:04,946 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:57:04] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:57:37,907 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:57:37] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:57:38,217 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:57:38] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:58:38,897 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:58:38] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:58:39,154 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:58:39] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:58:55,618 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:58:55] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:58:55,935 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:58:55] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:59:08,098 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:59:08] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:59:08,404 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:59:08] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:59:09,401 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:59:09] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:59:15,090 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:59:15] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:59:15,328 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:59:15] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:59:23,575 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:59:23] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 14:59:23,885 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:59:23] "GET /health HTTP/1.1" 200 -
+2025-10-10 14:59:27,080 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 14:59:27] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:00:14,221 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:00:14] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:00:14,484 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:00:14] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:03:42,810 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:03:42] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:03:43,060 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:03:43] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:05:30,538 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:05:30] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:05:30,798 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:05:30] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:05:59,866 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:05:59] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:06:00,191 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:06:00] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:08:46,831 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:08:46] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:08:47,087 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:08:47] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:13:50,827 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:13:50] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:13:51,093 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:13:51] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:18:54,863 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:18:54] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:18:55,115 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:18:55] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:23:58,859 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:23:58] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:23:59,124 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:23:59] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:29:02,875 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:29:02] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:29:03,122 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:29:03] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:34:06,888 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:34:06] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:34:07,156 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:34:07] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:39:10,973 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:39:10] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:39:11,238 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:39:11] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:44:14,891 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:44:14] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:44:15,154 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:44:15] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:49:18,906 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:49:18] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-10 15:49:19,170 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:49:19] "GET /health HTTP/1.1" 200 -
+2025-10-10 15:49:19,740 - werkzeug - INFO - 127.0.0.1 - - [10/Oct/2025 15:49:19] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:16:29,859 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.2.25:5000
+2025-10-13 13:16:29,860 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-13 13:16:34,361 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:16:34] "[33mGET / HTTP/1.1[0m" 404 -
+2025-10-13 13:17:11,098 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:17:11] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:17:11,346 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:17:11] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:17:42,111 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:17:42] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:17:42,474 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:17:42] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:17:52,643 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:17:52] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:17:52,958 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:17:52] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:18:52,856 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.118.127.225:5000
+2025-10-13 13:18:52,857 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-13 13:18:59,532 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:18:59] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:18:59,794 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:18:59] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:19:02,674 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:19:02] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:19:05,298 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:19:05] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:19:05,563 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:19:05] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:19:10,321 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:19:10] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:19:10,634 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:19:10] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:19:57,401 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:19:57] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:19:57,721 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:19:57] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:21:05,885 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:05] "POST /api/chat/upload HTTP/1.1" 200 -
+2025-10-13 13:21:18,142 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:18] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:21:18,622 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:18] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:21:18,940 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:18] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:21:19,579 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:19] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:21:20,218 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:20] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:21:20,810 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:20] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:21:29,252 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:29] "POST /api/chat/upload HTTP/1.1" 200 -
+2025-10-13 13:21:49,294 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:21:49] "OPTIONS /api/chat HTTP/1.1" 200 -
+2025-10-13 13:21:49,555 - routes - INFO - Chat request received: Summarize this suggest suggestions?...
+2025-10-13 13:21:49,556 - gemini_chain - INFO - Processing chat with context request: Summarize this suggest suggestions?...
+2025-10-13 13:22:08,738 - gemini_chain - INFO - Chat with context request processed successfully
+2025-10-13 13:22:08,738 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:22:08] "POST /api/chat HTTP/1.1" 200 -
+2025-10-13 13:23:52,853 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:23:52] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:23:53,098 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:23:53] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:23:53,163 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:23:53] "OPTIONS /api/chat HTTP/1.1" 200 -
+2025-10-13 13:23:53,417 - routes - INFO - Chat request received: Hello, are you working?...
+2025-10-13 13:23:53,417 - gemini_chain - INFO - Processing chat request for session None: Hello, are you working?...
+2025-10-13 13:23:57,267 - gemini_chain - INFO - Chat request processed successfully
+2025-10-13 13:23:57,267 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:23:57] "POST /api/chat HTTP/1.1" 200 -
+2025-10-13 13:24:12,491 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:24:12] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:24:12,806 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:24:12] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:24:46,274 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:24:46] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:24:46,589 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:24:46] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:26:22,458 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:26:22] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:26:22,715 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:26:22] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:26:22,849 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:26:22] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:26:23,789 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:26:23] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:27:05,427 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:27:05] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-13 13:27:05,818 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:27:05] "GET /health HTTP/1.1" 200 -
+2025-10-13 13:27:07,081 - werkzeug - INFO - 127.0.0.1 - - [13/Oct/2025 13:27:07] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:51:46,646 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.118.127.225:5000
+2025-10-14 09:51:46,646 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-14 09:52:19,600 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:52:19] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 09:52:19,854 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:52:19] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:52:54,271 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:52:54] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 09:52:54,586 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:52:54] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:53:13,680 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:53:13] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 09:53:14,000 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:53:14] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:53:16,597 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:53:16] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:53:19,768 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:53:19] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 09:53:20,023 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:53:20] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:53:43,210 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:53:43] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 09:53:43,529 - routes - INFO - Memory management request: clear
+2025-10-14 09:53:43,530 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:53:43] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 09:54:01,378 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:54:01] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 09:54:01,684 - routes - INFO - Intelligent chat request received: how to file a patient...
+2025-10-14 09:54:01,686 - intelligent_search - INFO - Processing intelligent chat request: how to file a patient...
+2025-10-14 09:54:01,686 - intelligent_search - INFO - Analyzing query for search decision: how to file a patient...
+2025-10-14 09:54:06,681 - intelligent_search - INFO - Search decision: True - CURRENT PROCEDURES
+2025-10-14 09:54:06,683 - gemini_chain - INFO - Processing chat request for session t_1760415823533: how to file a patient...
+2025-10-14 09:54:19,944 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 09:54:19,944 - intelligent_search - INFO - Performing web search and synthesis...
+2025-10-14 09:54:19,945 - search_tool - INFO - Processing search request: how to file a patient...
+2025-10-14 09:54:19,946 - search_tool - INFO - Trying search method 1/3
+2025-10-14 09:54:20,305 - primp - INFO - response: https://html.duckduckgo.com/html 202
+2025-10-14 09:54:20,306 - duckduckgo_search.DDGS - INFO - Error to search using html backend: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 09:54:21,242 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 202
+2025-10-14 09:54:21,242 - duckduckgo_search.DDGS - INFO - Error to search using lite backend: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 09:54:21,248 - search_tool - WARNING - DuckDuckGo search failed: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 09:54:21,249 - search_tool - WARNING - Search method 1 failed: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 09:54:21,250 - search_tool - INFO - Trying search method 2/3
+2025-10-14 09:54:22,699 - search_tool - INFO - Search method 2 succeeded
+2025-10-14 09:54:22,700 - search_tool - INFO - Search request processed successfully
+2025-10-14 09:54:29,933 - intelligent_search - INFO - Search and synthesis completed successfully
+2025-10-14 09:54:29,933 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-10-14 09:54:29,935 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:54:29] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 09:55:10,524 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:55:10] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 09:55:10,777 - routes - INFO - Intelligent chat request received: how to file a petition...
+2025-10-14 09:55:10,779 - intelligent_search - INFO - Processing intelligent chat request: how to file a petition...
+2025-10-14 09:55:10,780 - intelligent_search - INFO - Analyzing query for search decision: how to file a petition...
+2025-10-14 09:55:14,572 - intelligent_search - INFO - Search decision: False - GENERAL
+2025-10-14 09:55:14,573 - gemini_chain - INFO - Processing chat request for session t_1760415823533: how to file a petition...
+2025-10-14 09:55:39,048 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 09:55:39,048 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-10-14 09:55:39,050 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:55:39] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 09:56:45,667 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:56:45] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 09:56:45,932 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:56:45] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:56:50,718 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:56:50] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 09:56:51,097 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:56:51] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:56:51,852 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:56:51] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:58:20,938 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:58:20] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 09:58:21,199 - routes - INFO - Intelligent chat request received: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:58:21,200 - intelligent_search - INFO - Processing intelligent chat request: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:58:21,201 - intelligent_search - INFO - Analyzing query for search decision: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:58:26,461 - intelligent_search - INFO - Search decision: True - CURRENT
+2025-10-14 09:58:26,463 - gemini_chain - INFO - Processing chat request for session t_1760415823533: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:58:49,451 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 09:58:49,451 - intelligent_search - INFO - Performing web search and synthesis...
+2025-10-14 09:58:49,452 - search_tool - INFO - Processing search request: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:58:49,453 - search_tool - INFO - Trying search method 1/3
+2025-10-14 09:58:49,612 - primp - INFO - response: https://html.duckduckgo.com/html 202
+2025-10-14 09:58:49,613 - duckduckgo_search.DDGS - INFO - Error to search using html backend: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 09:58:50,972 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 202
+2025-10-14 09:58:50,974 - duckduckgo_search.DDGS - INFO - Error to search using lite backend: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 09:58:50,975 - search_tool - WARNING - DuckDuckGo search failed: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 09:58:50,976 - search_tool - WARNING - Search method 1 failed: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 09:58:50,976 - search_tool - INFO - Trying search method 2/3
+2025-10-14 09:58:52,862 - search_tool - INFO - Search method 2 succeeded
+2025-10-14 09:58:52,863 - search_tool - INFO - Search request processed successfully
+2025-10-14 09:59:00,917 - intelligent_search - INFO - Search and synthesis completed successfully
+2025-10-14 09:59:00,918 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-10-14 09:59:00,919 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:59:00] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 09:59:27,145 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:59:27] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 09:59:27,415 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:59:27] "GET /health HTTP/1.1" 200 -
+2025-10-14 09:59:38,857 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:59:38] "OPTIONS /api/chat/force-search HTTP/1.1" 200 -
+2025-10-14 09:59:39,165 - routes - INFO - Force search chat request received: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:59:39,166 - intelligent_search - INFO - Processing forced search chat request: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:59:39,167 - gemini_chain - INFO - Processing chat request for session t_1760415823533: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:59:44,299 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 09:59:44,299 - intelligent_search - INFO - Performing forced web search and synthesis...
+2025-10-14 09:59:44,299 - search_tool - INFO - Processing search request: I have recently registered a company on my name someone has I have saw a similar company with same n...
+2025-10-14 09:59:44,300 - search_tool - INFO - Trying search method 1/3
+2025-10-14 09:59:44,538 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 202
+2025-10-14 09:59:44,539 - duckduckgo_search.DDGS - INFO - Error to search using lite backend: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 09:59:45,606 - primp - INFO - response: https://html.duckduckgo.com/html 202
+2025-10-14 09:59:45,607 - duckduckgo_search.DDGS - INFO - Error to search using html backend: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 09:59:45,608 - search_tool - WARNING - DuckDuckGo search failed: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 09:59:45,608 - search_tool - WARNING - Search method 1 failed: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 09:59:45,609 - search_tool - INFO - Trying search method 2/3
+2025-10-14 09:59:48,639 - search_tool - INFO - Search method 2 succeeded
+2025-10-14 09:59:48,640 - search_tool - INFO - Search request processed successfully
+2025-10-14 09:59:55,677 - intelligent_search - INFO - Forced search and synthesis completed successfully
+2025-10-14 09:59:55,678 - intelligent_search - INFO - Forced search chat request processed successfully
+2025-10-14 09:59:55,680 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 09:59:55] "POST /api/chat/force-search HTTP/1.1" 200 -
+2025-10-14 10:01:50,359 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:01:50] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:01:50,618 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:01:50] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:04:52,562 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:04:52] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 10:04:52,832 - routes - INFO - Intelligent chat request received: hello bhai...
+2025-10-14 10:04:52,832 - intelligent_search - INFO - Processing intelligent chat request: hello bhai...
+2025-10-14 10:04:52,832 - intelligent_search - INFO - Analyzing query for search decision: hello bhai...
+2025-10-14 10:04:59,168 - intelligent_search - INFO - Search decision: False - BASIC
+2025-10-14 10:04:59,169 - gemini_chain - INFO - Processing chat request for session t_1760415823533: hello bhai...
+2025-10-14 10:05:02,447 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 10:05:02,448 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-10-14 10:05:02,448 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:05:02] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 10:06:14,797 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:14] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:06:15,064 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:15] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:18,138 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:18] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:21,397 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:21] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:06:21,667 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:21] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:24,259 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:24] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:27,505 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:27] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:06:27,768 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:27] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:53,353 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:53] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:06:53,665 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:53] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:53,921 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:53] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:54,285 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:54] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:54,910 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:54] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:55,364 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:55] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:06:56,128 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:06:56] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:11:58,360 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:11:58] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:11:58,604 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:11:58] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:14:43,241 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:14:43] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 10:14:43,497 - routes - INFO - Intelligent chat request received: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:14:43,497 - intelligent_search - INFO - Processing intelligent chat request: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:14:43,497 - intelligent_search - INFO - Analyzing query for search decision: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:14:47,284 - intelligent_search - INFO - Search decision: True - CURRENT PROCEDURES
+2025-10-14 10:14:47,284 - gemini_chain - INFO - Processing chat request for session t_1760415823533: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:15:05,143 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 10:15:05,143 - intelligent_search - INFO - Performing web search and synthesis...
+2025-10-14 10:15:05,143 - search_tool - INFO - Processing search request: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:15:05,143 - search_tool - INFO - Trying search method 1/3
+2025-10-14 10:15:05,500 - primp - INFO - response: https://html.duckduckgo.com/html 202
+2025-10-14 10:15:05,500 - duckduckgo_search.DDGS - INFO - Error to search using html backend: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 10:15:06,492 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 202
+2025-10-14 10:15:06,492 - duckduckgo_search.DDGS - INFO - Error to search using lite backend: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 10:15:06,493 - search_tool - WARNING - DuckDuckGo search failed: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 10:15:06,493 - search_tool - WARNING - Search method 1 failed: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 10:15:06,493 - search_tool - INFO - Trying search method 2/3
+2025-10-14 10:15:09,456 - search_tool - INFO - Search method 2 succeeded
+2025-10-14 10:15:09,456 - search_tool - INFO - Search request processed successfully
+2025-10-14 10:15:18,120 - intelligent_search - INFO - Search and synthesis completed successfully
+2025-10-14 10:15:18,120 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-10-14 10:15:18,121 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:15:18] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 10:15:29,143 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:15:29] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:15:29,467 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:15:29] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:15:32,617 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:15:32] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 10:15:32,922 - routes - INFO - Intelligent chat request received: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:15:32,922 - intelligent_search - INFO - Processing intelligent chat request: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:15:32,922 - intelligent_search - INFO - Analyzing query for search decision: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:15:37,671 - intelligent_search - INFO - Search decision: True - CURRENT PROCEDURES
+2025-10-14 10:15:37,671 - gemini_chain - INFO - Processing chat request for session t_1760415823533: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:15:42,767 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 10:15:42,768 - intelligent_search - INFO - Performing web search and synthesis...
+2025-10-14 10:15:42,768 - search_tool - INFO - Processing search request: I am stuck in highway at sudden a police officer came to me and asking me for fine I was not convinc...
+2025-10-14 10:15:42,768 - search_tool - INFO - Trying search method 1/3
+2025-10-14 10:15:42,891 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 202
+2025-10-14 10:15:42,891 - duckduckgo_search.DDGS - INFO - Error to search using lite backend: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-10-14 10:15:43,922 - primp - INFO - response: https://html.duckduckgo.com/html 202
+2025-10-14 10:15:43,922 - duckduckgo_search.DDGS - INFO - Error to search using html backend: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 10:15:43,923 - search_tool - WARNING - DuckDuckGo search failed: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 10:15:43,923 - search_tool - WARNING - Search method 1 failed: https://html.duckduckgo.com/html 202 Ratelimit
+2025-10-14 10:15:43,923 - search_tool - INFO - Trying search method 2/3
+2025-10-14 10:15:46,709 - search_tool - INFO - Search method 2 succeeded
+2025-10-14 10:15:46,709 - search_tool - INFO - Search request processed successfully
+2025-10-14 10:15:54,391 - intelligent_search - INFO - Search and synthesis completed successfully
+2025-10-14 10:15:54,391 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-10-14 10:15:54,392 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:15:54] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 10:17:01,742 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:17:01] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:17:01,992 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:17:01] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:17:02,969 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:17:02] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:17:03,791 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:17:03] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:21:14,902 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:21:14] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 10:21:15,145 - routes - INFO - Memory management request: clear
+2025-10-14 10:21:15,145 - gemini_chain - INFO - Memory cleared for session: t_1760415823533
+2025-10-14 10:21:15,146 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:21:15] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 10:21:22,147 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:21:22] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 10:21:22,468 - routes - INFO - Memory management request: clear
+2025-10-14 10:21:22,469 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:21:22] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 10:21:24,585 - routes - INFO - Memory management request: clear
+2025-10-14 10:21:24,586 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:21:24] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 10:22:05,806 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:22:05] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:22:06,073 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:22:06] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:22:06,902 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:22:06] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:22:07,580 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:22:07] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:27:10,074 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:27:10] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:27:10,339 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:27:10] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:27:11,222 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:27:11] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:29:10,037 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:29:10] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:29:10,300 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:29:10] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:29:38,458 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:29:38] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:29:38,797 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:29:38] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:30:15,152 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:30:15] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:30:15,472 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:30:15] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:42:41,767 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.118.127.225:5000
+2025-10-14 10:42:41,767 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-14 10:43:03,579 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:43:03] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:43:03,826 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:43:03] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:46:20,334 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:46:20] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:46:20,539 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:46:20] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:47:41,808 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:47:41] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 10:47:42,176 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:47:42] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:47:46,160 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:47:46] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:47:46,976 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:47:46] "GET /health HTTP/1.1" 200 -
+2025-10-14 10:47:50,072 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:47:50] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 10:47:50,394 - routes - INFO - Memory management request: clear
+2025-10-14 10:47:50,396 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:47:50] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-10-14 10:47:57,410 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:47:57] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 10:47:57,726 - routes - INFO - Intelligent chat request received: What is article 15?...
+2025-10-14 10:47:57,726 - intelligent_search - INFO - Processing intelligent chat request: What is article 15?...
+2025-10-14 10:47:57,727 - intelligent_search - INFO - Analyzing query for search decision: What is article 15?...
+2025-10-14 10:47:59,410 - intelligent_search - INFO - Search decision: False - BASIC
+2025-10-14 10:47:59,410 - gemini_chain - INFO - Processing chat request for session t_1760419070399: What is article 15?...
+2025-10-14 10:48:12,000 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 10:48:12,000 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-10-14 10:48:12,001 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 10:48:12] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-10-14 12:39:51,494 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.118.127.225:5000
+2025-10-14 12:39:51,495 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-14 12:47:11,506 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:47:11] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:47:11,858 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:47:11] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:47:15,511 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:47:15] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:47:15,820 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:47:15] "OPTIONS /api/chat HTTP/1.1" 200 -
+2025-10-14 12:47:16,094 - routes - INFO - Chat request received: Hello, are you working?...
+2025-10-14 12:47:16,096 - gemini_chain - INFO - Processing chat request for session None: Hello, are you working?...
+2025-10-14 12:47:19,751 - gemini_chain - INFO - Chat request processed successfully
+2025-10-14 12:47:19,752 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:47:19] "POST /api/chat HTTP/1.1" 200 -
+2025-10-14 12:55:14,183 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:14] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:55:14,433 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:14] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:55:17,377 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:17] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:55:20,402 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:20] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:55:20,668 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:20] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:55:23,593 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:23] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:55:37,949 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:37] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:55:38,192 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:38] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:55:38,853 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:38] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:55:43,119 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:43] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:55:44,716 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:44] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:55:45,063 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:45] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:55:46,008 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:55:46] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:58:02,311 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:02] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:58:02,558 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:02] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:58:09,915 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:09] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:58:10,238 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:10] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:58:31,483 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:31] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:58:31,798 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:31] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:58:50,032 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:50] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:58:50,357 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:50] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:58:53,124 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:58:53] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:59:00,817 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:59:00] "OPTIONS /health HTTP/1.1" 200 -
+2025-10-14 12:59:01,079 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:59:01] "GET /health HTTP/1.1" 200 -
+2025-10-14 12:59:02,825 - werkzeug - INFO - 127.0.0.1 - - [14/Oct/2025 12:59:02] "GET /health HTTP/1.1" 200 -
+2025-11-06 14:23:09,748 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.211.34.225:5000
+2025-11-06 14:23:09,749 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-06 14:23:13,789 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:13] "[33mGET / HTTP/1.1[0m" 404 -
+2025-11-06 14:23:13,916 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-06 14:23:29,865 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:29] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-06 14:23:30,135 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:30] "GET /health HTTP/1.1" 200 -
+2025-11-06 14:23:34,924 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:34] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-06 14:23:35,232 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:35] "GET /health HTTP/1.1" 200 -
+2025-11-06 14:23:40,256 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:40] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-06 14:23:40,562 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:40] "GET /health HTTP/1.1" 200 -
+2025-11-06 14:23:51,371 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:23:51] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-11-06 14:23:51,678 - routes - INFO - Intelligent chat request received: ngcgh...
+2025-11-06 14:23:51,679 - intelligent_search - INFO - Processing intelligent chat request: ngcgh...
+2025-11-06 14:23:51,679 - intelligent_search - INFO - Analyzing query for search decision: ngcgh...
+2025-11-06 14:23:58,139 - intelligent_search - INFO - Search decision: False - unclear decision, defaulting to no search
+2025-11-06 14:23:58,141 - gemini_chain - INFO - Processing chat request for session t_1760417484587: ngcgh...
+2025-11-06 14:24:01,421 - gemini_chain - INFO - Chat request processed successfully
+2025-11-06 14:24:01,421 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-11-06 14:24:01,423 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:24:01] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-11-06 14:24:07,953 - werkzeug - INFO - 127.0.0.1 - - [06/Nov/2025 14:24:07] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-12 23:26:27,112 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.121.38.225:5000
+2025-11-12 23:26:27,113 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-12 23:26:30,259 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:26:30] "[33mGET / HTTP/1.1[0m" 404 -
+2025-11-12 23:26:34,681 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:26:34] "[33mGET /index.html HTTP/1.1[0m" 404 -
+2025-11-12 23:26:53,296 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:26:53] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-12 23:26:53,543 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:26:53] "GET /health HTTP/1.1" 200 -
+2025-11-12 23:27:26,848 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:27:26] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-12 23:27:27,157 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:27:27] "GET /health HTTP/1.1" 200 -
+2025-11-12 23:27:46,089 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:27:46] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-12 23:27:46,397 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:27:46] "GET /health HTTP/1.1" 200 -
+2025-11-12 23:27:48,156 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:27:48] "GET /health HTTP/1.1" 200 -
+2025-11-12 23:28:02,500 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:28:02] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-12 23:28:02,762 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:28:02] "GET /health HTTP/1.1" 200 -
+2025-11-12 23:28:52,493 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:28:52] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-12 23:28:52,807 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:28:52] "GET /health HTTP/1.1" 200 -
+2025-11-12 23:29:02,533 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:29:02] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-11-12 23:29:02,850 - routes - INFO - Memory management request: clear
+2025-11-12 23:29:02,851 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:29:02] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-11-12 23:30:46,917 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:30:46] "OPTIONS /health HTTP/1.1" 200 -
+2025-11-12 23:30:47,182 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2025 23:30:47] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:46:50,769 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.40.46:5000
+2025-12-04 15:46:50,772 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-04 15:46:55,170 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:46:55] "[33mGET / HTTP/1.1[0m" 404 -
+2025-12-04 15:46:55,552 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:46:55] "[33mGET / HTTP/1.1[0m" 404 -
+2025-12-04 15:46:55,900 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:46:55] "[33mGET / HTTP/1.1[0m" 404 -
+2025-12-04 15:47:02,382 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:47:02] "[33mGET / HTTP/1.1[0m" 404 -
+2025-12-04 15:47:23,128 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.40.46:5000
+2025-12-04 15:47:23,128 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-04 15:47:41,533 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:47:41] "OPTIONS /health HTTP/1.1" 200 -
+2025-12-04 15:47:41,779 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:47:41] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:48:03,050 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:03] "OPTIONS /health HTTP/1.1" 200 -
+2025-12-04 15:48:03,370 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:03] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:48:06,025 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:06] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:48:08,583 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:08] "OPTIONS /health HTTP/1.1" 200 -
+2025-12-04 15:48:09,904 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:09] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:48:10,426 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:10] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:48:11,557 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:11] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:48:14,037 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:14] "OPTIONS /health HTTP/1.1" 200 -
+2025-12-04 15:48:17,284 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:17] "OPTIONS /api/chat/memory HTTP/1.1" 200 -
+2025-12-04 15:48:17,540 - routes - INFO - Memory management request: clear
+2025-12-04 15:48:17,541 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:17] "POST /api/chat/memory HTTP/1.1" 200 -
+2025-12-04 15:48:33,656 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:33] "OPTIONS /api/chat/intelligent HTTP/1.1" 200 -
+2025-12-04 15:48:33,968 - routes - INFO - Intelligent chat request received: Hello who are you and what are you about?...
+2025-12-04 15:48:33,968 - intelligent_search - INFO - Processing intelligent chat request: Hello who are you and what are you about?...
+2025-12-04 15:48:33,968 - intelligent_search - INFO - Analyzing query for search decision: Hello who are you and what are you about?...
+2025-12-04 15:48:41,612 - intelligent_search - INFO - Search decision: False - unclear decision, defaulting to no search
+2025-12-04 15:48:41,612 - gemini_chain - INFO - Processing chat request for session t_1764843497544: Hello who are you and what are you about?...
+2025-12-04 15:48:46,451 - gemini_chain - INFO - Chat request processed successfully
+2025-12-04 15:48:46,466 - intelligent_search - INFO - Intelligent chat request processed successfully
+2025-12-04 15:48:46,468 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:48:46] "POST /api/chat/intelligent HTTP/1.1" 200 -
+2025-12-04 15:50:28,566 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:50:28] "OPTIONS /health HTTP/1.1" 200 -
+2025-12-04 15:50:28,833 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:50:28] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:50:29,097 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:50:29] "GET /health HTTP/1.1" 200 -
+2025-12-04 15:50:29,739 - werkzeug - INFO - 127.0.0.1 - - [04/Dec/2025 15:50:29] "GET /health HTTP/1.1" 200 -
