@@ -9,29 +9,107 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = { darkMode: 'class', theme: { extend: { colors: { royal: '#1E3A8A', gold: '#D4AF37' }, fontFamily: { sans: ['Inter','sans-serif'], serif: ['Playfair Display','serif'] }, boxShadow: { soft: '0 10px 30px rgba(0,0,0,0.08)' } } } }
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              accent: {
+                DEFAULT: '#d97706',
+                hover: '#b45309',
+                light: '#f59e0b',
+                subtle: '#fef3c7',
+              },
+              surface: {
+                primary: '#ffffff',
+                secondary: '#f9f9f8',
+                tertiary: '#f0eeeb',
+              },
+              ink: {
+                primary: '#1a1a19',
+                secondary: '#5c5c5a',
+                muted: '#8a8a85',
+              },
+              warm: {
+                border: '#e5e3de',
+                dark: '#1a1917',
+                panel: '#222120',
+                card: '#2a2926',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            boxShadow: {
+              soft: '0 4px 20px rgba(0,0,0,0.06)',
+              card: '0 1px 4px rgba(0,0,0,0.08)',
+            }
+          }
+        }
+      }
     </script>
+    <style>
+      :root {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f9f9f8;
+        --bg-tertiary: #f0eeeb;
+        --text-primary: #1a1a19;
+        --text-secondary: #5c5c5a;
+        --text-muted: #8a8a85;
+        --accent: #d97706;
+        --accent-hover: #b45309;
+        --accent-subtle: #fef3c7;
+        --border: #e5e3de;
+        --border-subtle: #f0eeeb;
+        --surface-user: #f0eeeb;
+        --surface-ai: #ffffff;
+        --sidebar: #f9f9f8;
+        --shadow: rgba(0,0,0,0.06);
+      }
+      .dark {
+        --bg-primary: #1a1917;
+        --bg-secondary: #222120;
+        --bg-tertiary: #2a2926;
+        --text-primary: #e8e6e1;
+        --text-secondary: #9b9892;
+        --text-muted: #6b6a66;
+        --accent: #d97706;
+        --accent-hover: #f59e0b;
+        --accent-subtle: #292217;
+        --border: #333230;
+        --border-subtle: #2a2926;
+        --surface-user: #2a2926;
+        --surface-ai: #222120;
+        --sidebar: #1e1d1b;
+        --shadow: rgba(0,0,0,0.3);
+      }
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+      }
+    </style>
     <script>(function(){const s=localStorage.getItem('theme');if(s==='dark'||(!s&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}})();</script>
   </head>
-  <body class="bg-slate-50 text-slate-800 dark:bg-black dark:text-slate-100">
-    <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-black/50 border-b border-slate-200/70 dark:border-slate-800">
+  <body class="bg-[var(--bg-secondary)] text-[var(--text-primary)] dark:bg-[var(--bg-primary)] dark:text-[var(--text-primary)]">
+    <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-[var(--bg-primary)]/80 border-b border-[var(--border)]">
       <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="index.html" class="logo-link flex items-center gap-2 group">
-          <div class="w-9 h-9 rounded-md bg-gradient-to-br from-royal to-blue-900 text-white grid place-items-center font-serif">⚖️</div>
+          <div class="w-9 h-9 rounded-md bg-gradient-to-br from-[#d97706] to-[#92400e] text-white grid place-items-center font-serif">⚖️</div>
           <span class="font-serif text-xl font-bold tracking-wide">NyayaAI</span>
         </a>
         <div class="hidden md:flex items-center gap-6">
-          <a class="hover:text-royal dark:hover:text-blue-400 transition" href="features.html">Features</a>
-          <a class="hover:text-royal dark:hover:text-blue-400 transition" href="chat.html">Chat</a>
-          <a class="hover:text-royal dark:hover:text-blue-400 transition" href="about.html">About</a>
-          <a class="text-royal dark:text-blue-300 font-medium" href="contact.html">Contact</a>
+          <a class="hover:text-[var(--accent)] dark:hover:text-[var(--accent-hover)] transition" href="features.html">Features</a>
+          <a class="hover:text-[var(--accent)] dark:hover:text-[var(--accent-hover)] transition" href="chat.html">Chat</a>
+          <a class="hover:text-[var(--accent)] dark:hover:text-[var(--accent-hover)] transition" href="about.html">About</a>
+          <a class="text-[var(--accent)] font-medium" href="contact.html">Contact</a>
         </div>
         <div class="flex items-center gap-2">
-          <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full border border-slate-300 dark:border-slate-700 px-3 py-1.5 text-sm hover:shadow-soft transition">
+          <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-3 py-1.5 text-sm hover:shadow-soft transition">
             <span class="i-theme">🌙</span>
             <span class="hidden sm:inline">Theme</span>
           </button>
-          <a href="chat.html" class="ml-1 inline-flex items-center rounded-full bg-gradient-to-r from-royal to-blue-600 text-white px-4 py-2 text-sm font-medium shadow-soft border border-blue-700/30">Start Chat</a>
+          <a href="chat.html" class="ml-1 inline-flex items-center rounded-full bg-gradient-to-r from-[#d97706] to-[#b45309] text-white px-4 py-2 text-sm font-medium shadow-soft hover:from-[#b45309] hover:to-[#92400e] border border-[#92400e]/40">Start Chat</a>
         </div>
       </nav>
     </header>
@@ -40,29 +118,29 @@
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <h1 class="font-serif text-4xl sm:text-5xl font-bold">Get in Touch</h1>
-          <p class="mt-6 text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">Have feedback, questions, or want to collaborate? We'd love to hear from you. Reach out to our team and help us shape the future of AI-powered legal research.</p>
+          <p class="mt-6 text-lg text-[var(--text-secondary)] max-w-3xl mx-auto">Have feedback, questions, or want to collaborate? We'd love to hear from you. Reach out to our team and help us shape the future of AI-powered legal research.</p>
         </div>
 
         <div class="grid lg:grid-cols-3 gap-12 mb-16">
-          <div class="text-center p-8 rounded-3xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-800 shadow-soft">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-royal to-blue-700 text-white flex items-center justify-center text-2xl">📧</div>
+          <div class="text-center p-8 rounded-3xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)] dark:from-[var(--bg-tertiary)] dark:to-[var(--bg-secondary)] shadow-soft">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[#d97706] to-[#b45309] text-white flex items-center justify-center text-2xl">📧</div>
             <h3 class="font-serif text-xl font-bold mb-3">Email Us</h3>
-            <p class="text-slate-600 dark:text-slate-300 mb-4">Send us a detailed message and we'll get back to you within 24 hours.</p>
-            <a href="mailto:hello@nyayaai.com" class="text-royal dark:text-blue-300 font-medium hover:underline">hello@nyayaai.com</a>
+            <p class="text-[var(--text-secondary)] mb-4">Send us a detailed message and we'll get back to you within 24 hours.</p>
+            <a href="mailto:hello@nyayaai.com" class="text-[var(--accent)] dark:text-[var(--accent-hover)] font-medium hover:underline">hello@nyayaai.com</a>
           </div>
 
-          <div class="text-center p-8 rounded-3xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-800 shadow-soft">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-gold to-yellow-600 text-white flex items-center justify-center text-2xl">💬</div>
+          <div class="text-center p-8 rounded-3xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)] dark:from-[var(--bg-tertiary)] dark:to-[var(--bg-secondary)] shadow-soft">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[var(--accent)] to-yellow-600 text-white flex items-center justify-center text-2xl">💬</div>
             <h3 class="font-serif text-xl font-bold mb-3">Live Chat</h3>
-            <p class="text-slate-600 dark:text-slate-300 mb-4">Chat with our AI assistant for instant answers to common questions.</p>
-            <a href="chat.html" class="text-royal dark:text-blue-300 font-medium hover:underline">Start Chatting</a>
+            <p class="text-[var(--text-secondary)] mb-4">Chat with our AI assistant for instant answers to common questions.</p>
+            <a href="chat.html" class="text-[var(--accent)] dark:text-[var(--accent-hover)] font-medium hover:underline">Start Chatting</a>
           </div>
 
-          <div class="text-center p-8 rounded-3xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-800 shadow-soft">
+          <div class="text-center p-8 rounded-3xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)] dark:from-[var(--bg-tertiary)] dark:to-[var(--bg-secondary)] shadow-soft">
             <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-green-500 to-green-700 text-white flex items-center justify-center text-2xl">🤝</div>
             <h3 class="font-serif text-xl font-bold mb-3">Partnership</h3>
-            <p class="text-slate-600 dark:text-slate-300 mb-4">Interested in partnering with us? Let's explore opportunities together.</p>
-            <a href="mailto:partnerships@nyayaai.com" class="text-royal dark:text-blue-300 font-medium hover:underline">partnerships@nyayaai.com</a>
+            <p class="text-[var(--text-secondary)] mb-4">Interested in partnering with us? Let's explore opportunities together.</p>
+            <a href="mailto:partnerships@nyayaai.com" class="text-[var(--accent)] dark:text-[var(--accent-hover)] font-medium hover:underline">partnerships@nyayaai.com</a>
           </div>
         </div>
 
@@ -72,26 +150,26 @@
             <form id="contactForm" class="space-y-6">
               <div class="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" for="name">Full Name</label>
-                  <input id="name" name="name" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal" placeholder="Your full name" required />
+                  <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2" for="name">Full Name</label>
+                  <input id="name" name="name" class="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] placeholder:text-[var(--text-muted)] text-[var(--text-primary)]" placeholder="Your full name" required />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" for="email">Email Address</label>
-                  <input id="email" type="email" name="email" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal" placeholder="your@email.com" required />
+                  <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2" for="email">Email Address</label>
+                  <input id="email" type="email" name="email" class="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] placeholder:text-[var(--text-muted)] text-[var(--text-primary)]" placeholder="your@email.com" required />
                 </div>
               </div>
               
               <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" for="subject">Subject</label>
-                <input id="subject" name="subject" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal" placeholder="What's this about?" required />
+                <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2" for="subject">Subject</label>
+                <input id="subject" name="subject" class="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] placeholder:text-[var(--text-muted)] text-[var(--text-primary)]" placeholder="What's this about?" required />
               </div>
               
               <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" for="message">Message</label>
-                <textarea id="message" name="message" rows="6" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal" placeholder="Tell us more about your inquiry..." required></textarea>
+                <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2" for="message">Message</label>
+                <textarea id="message" name="message" rows="6" class="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] placeholder:text-[var(--text-muted)] text-[var(--text-primary)]" placeholder="Tell us more about your inquiry..." required></textarea>
               </div>
               
-              <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-royal to-blue-700 text-white px-8 py-4 font-medium shadow-soft hover:translate-y-[-2px] transition border border-blue-800/40">
+              <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-[#d97706] to-[#b45309] text-white px-8 py-4 font-medium shadow-soft hover:translate-y-[-2px] transition border border-[#92400e]/40">
                 Send Message
                 <svg class="inline-block ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
@@ -106,42 +184,42 @@
             <div>
               <h3 class="font-serif text-2xl font-bold mb-6">Connect With Us</h3>
               <div class="space-y-4">
-                <a href="#" class="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-white/5 shadow-soft hover:shadow-lg transition-all group">
+                <a href="#" class="flex items-center gap-4 p-4 rounded-2xl border border-[var(--border)] bg-[var(--bg-primary)]/70 dark:bg-[var(--bg-tertiary)] shadow-soft hover:shadow-lg transition-all group">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 text-white flex items-center justify-center">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                   </div>
                   <div>
-                    <div class="font-semibold group-hover:text-royal dark:group-hover:text-blue-300 transition">LinkedIn</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Follow us for updates</div>
+                    <div class="font-semibold group-hover:text-[var(--accent)] transition">LinkedIn</div>
+                    <div class="text-sm text-[var(--text-secondary)]">Follow us for updates</div>
                   </div>
                 </a>
 
-                <a href="#" class="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-white/5 shadow-soft hover:shadow-lg transition-all group">
+                <a href="#" class="flex items-center gap-4 p-4 rounded-2xl border border-[var(--border)] bg-[var(--bg-primary)]/70 dark:bg-[var(--bg-tertiary)] shadow-soft hover:shadow-lg transition-all group">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                   </div>
                   <div>
-                    <div class="font-semibold group-hover:text-royal dark:group-hover:text-blue-300 transition">GitHub</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">View our open source work</div>
+                    <div class="font-semibold group-hover:text-[var(--accent)] transition">GitHub</div>
+                    <div class="text-sm text-[var(--text-secondary)]">View our open source work</div>
                   </div>
                 </a>
 
-                <a href="#" class="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-white/5 shadow-soft hover:shadow-lg transition-all group">
+                <a href="#" class="flex items-center gap-4 p-4 rounded-2xl border border-[var(--border)] bg-[var(--bg-primary)]/70 dark:bg-[var(--bg-tertiary)] shadow-soft hover:shadow-lg transition-all group">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white flex items-center justify-center">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
                   </div>
                   <div>
-                    <div class="font-semibold group-hover:text-royal dark:group-hover:text-blue-300 transition">Twitter</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Stay updated with our news</div>
+                    <div class="font-semibold group-hover:text-[var(--accent)] transition">Twitter</div>
+                    <div class="text-sm text-[var(--text-secondary)]">Stay updated with our news</div>
                   </div>
                 </a>
               </div>
             </div>
 
-            <div class="bg-gradient-to-br from-royal/5 to-blue-50 dark:from-royal/10 dark:to-blue-950/30 rounded-2xl p-8">
+            <div class="bg-gradient-to-br from-[var(--accent)]/5 to-[var(--bg-secondary)] dark:from-[var(--accent)]/10 dark:to-[var(--bg-tertiary)]/30 rounded-2xl p-8">
               <h3 class="font-serif text-xl font-bold mb-4">Quick Response</h3>
-              <p class="text-slate-600 dark:text-slate-300 mb-4">We typically respond to all inquiries within 24 hours. For urgent matters, please mention "URGENT" in your subject line.</p>
-              <div class="text-sm text-slate-500 dark:text-slate-400">
+              <p class="text-[var(--text-secondary)] mb-4">We typically respond to all inquiries within 24 hours. For urgent matters, please mention "URGENT" in your subject line.</p>
+              <div class="text-sm text-[var(--text-muted)]">
                 <div class="flex items-center gap-2 mb-2">
                   <div class="w-2 h-2 rounded-full bg-green-500"></div>
                   <span>Monday - Friday: 9 AM - 6 PM IST</span>
@@ -157,31 +235,31 @@
       </div>
     </main>
 
-    <footer class="bg-slate-900 dark:bg-black text-white">
+    <footer class="bg-[#111110] dark:bg-[#0f0e0d] text-[#9b9892]">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div class="grid md:grid-cols-4 gap-8">
           <div class="md:col-span-2">
             <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-royal to-blue-900 text-white flex items-center justify-center font-serif text-xl">⚖️</div>
-              <div class="font-serif text-2xl font-bold">NyayaAI</div>
+              <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#d97706] to-[#92400e] text-white flex items-center justify-center font-serif text-xl">⚖️</div>
+              <div class="font-serif text-2xl font-bold text-white">NyayaAI</div>
             </div>
-            <p class="text-slate-300 mb-6 max-w-md">Revolutionizing legal research with AI-powered assistance. Making Indian law accessible, understandable, and actionable for everyone.</p>
+            <p class="text-[#9b9892] mb-6 max-w-md">Revolutionizing legal research with AI-powered assistance. Making Indian law accessible, understandable, and actionable for everyone.</p>
             <div class="flex items-center gap-4">
-              <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-royal transition flex items-center justify-center">
+              <a href="#" class="w-10 h-10 rounded-full bg-[#1e1d1b] hover:bg-[var(--accent)] transition flex items-center justify-center text-[#9b9892] hover:text-white">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               </a>
-              <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-royal transition flex items-center justify-center">
+              <a href="#" class="w-10 h-10 rounded-full bg-[#1e1d1b] hover:bg-[var(--accent)] transition flex items-center justify-center text-[#9b9892] hover:text-white">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
               </a>
-              <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-royal transition flex items-center justify-center">
+              <a href="#" class="w-10 h-10 rounded-full bg-[#1e1d1b] hover:bg-[var(--accent)] transition flex items-center justify-center text-[#9b9892] hover:text-white">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
               </a>
             </div>
           </div>
           
           <div>
-            <h3 class="font-semibold text-lg mb-4">Product</h3>
-            <ul class="space-y-2 text-slate-300">
+            <h3 class="font-semibold text-lg mb-4 text-white">Product</h3>
+            <ul class="space-y-2 text-[#9b9892]">
               <li><a href="features.html" class="hover:text-white transition">Features</a></li>
               <li><a href="chat.html" class="hover:text-white transition">AI Chat</a></li>
               <li><a href="about.html" class="hover:text-white transition">About</a></li>
@@ -190,8 +268,8 @@
           </div>
           
           <div>
-            <h3 class="font-semibold text-lg mb-4">Legal</h3>
-            <ul class="space-y-2 text-slate-300">
+            <h3 class="font-semibold text-lg mb-4 text-white">Legal</h3>
+            <ul class="space-y-2 text-[#9b9892]">
               <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
               <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
               <li><a href="#" class="hover:text-white transition">Disclaimer</a></li>
@@ -200,15 +278,13 @@
           </div>
         </div>
         
-        <div class="border-t border-slate-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between">
-          <div class="text-slate-400 text-sm">© 2025 NyayaAI. All Rights Reserved.</div>
-          <div class="text-slate-400 text-sm mt-4 sm:mt-0">Made with ❤️ for the Indian Legal Community</div>
+        <div class="border-t border-[#333230] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between">
+          <div class="text-[#6b6a66] text-sm">© 2025 NyayaAI. All Rights Reserved.</div>
+          <div class="text-[#6b6a66] text-sm mt-4 sm:mt-0">Made with ❤️ for the Indian Legal Community</div>
         </div>
       </div>
     </footer>
 
     <script src="assets/js/main.js"></script>
   </body>
-  </html>
-
-
+</html>
