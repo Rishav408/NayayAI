@@ -89,13 +89,85 @@
         color: var(--text-primary);
       }
     </style>
+    <style>
+      .ny-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+      .ny-scroll::-webkit-scrollbar { width: 0; height: 0; background: transparent; }
+      .ny-scroll::-webkit-scrollbar-thumb { background: transparent; }
+
+      /* Sidebar conversation items - override JS-injected classes */
+      #historyList li {
+        border: none !important;
+        border-radius: 6px;
+        padding: 6px 12px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      #historyList li:hover {
+        background: var(--bg-tertiary);
+      }
+      #historyList li.ring-1 {
+        background: var(--accent-subtle) !important;
+        ring: none !important;
+      }
+
+      /* Message container - override JS-injected styles */
+      #chatContainer > div {
+        border: none !important;
+        padding: 16px 0 !important;
+        border-radius: 0 !important;
+        max-width: 48rem;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* User messages - right-aligned pill */
+      #chatContainer > div.ml-8 {
+        display: flex;
+        justify-content: flex-end;
+      }
+      #chatContainer > div.ml-8 .flex-1 {
+        background: var(--bg-tertiary);
+        border-radius: 18px 18px 4px 18px;
+        padding: 10px 16px;
+        max-width: 75%;
+      }
+
+      /* AI messages - left-aligned, no background */
+      #chatContainer > div.mr-8 {
+        display: flex;
+        justify-content: flex-start;
+      }
+      #chatContainer > div.mr-8 .flex-1 {
+        max-width: 85%;
+        padding: 4px 0;
+      }
+
+      /* Hide avatars */
+      #chatContainer > div.mr-8 > div:first-child {
+        display: none;
+      }
+      #chatContainer > div.ml-8 > div:first-child {
+        display: none;
+      }
+
+      /* AI label override */
+      #chatContainer .text-royal,
+      #chatContainer .dark\:text-blue-300 {
+        color: var(--accent) !important;
+        font-weight: 600;
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+        display: block;
+      }
+
+      /* Loading state override */
+      #chatContainer > div:has(.animate-bounce) {
+        border: none !important;
+        padding: 16px 0 !important;
+      }
+    </style>
     <script>(function(){const s=localStorage.getItem('theme');if(s==='dark'||(!s&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}})();</script>
   </head>
-  <style>
-    .ny-scroll { scrollbar-width: none; -ms-overflow-style: none; }
-    .ny-scroll::-webkit-scrollbar { width: 0; height: 0; background: transparent; }
-    .ny-scroll::-webkit-scrollbar-thumb { background: transparent; }
-  </style>
   <body class="bg-[var(--bg-secondary)] text-[var(--text-primary)] dark:bg-[var(--bg-primary)] dark:text-[var(--text-primary)]">
     <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-[var(--bg-primary)]/80 border-b border-[var(--border)]">
       <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -103,104 +175,180 @@
           <div class="w-9 h-9 rounded-md bg-gradient-to-br from-[#d97706] to-[#92400e] text-white grid place-items-center font-serif">⚖️</div>
           <span class="font-serif text-xl font-bold tracking-wide">NyayaAI</span>
         </a>
-        <div class="hidden md:flex items-center gap-6">
+        <div class="hidden md:flex items-center gap-8">
           <a class="hover:text-[var(--accent)] dark:hover:text-[var(--accent-hover)] transition" href="features.html">Features</a>
-          <a class="text-[var(--accent)] font-medium" href="chat.html">Chat</a>
+          <a class="text-[var(--accent)] font-medium border-b-2 border-[var(--accent)] pb-0.5" href="chat.html">Chat</a>
           <a class="hover:text-[var(--accent)] dark:hover:text-[var(--accent-hover)] transition" href="about.html">About</a>
           <a class="hover:text-[var(--accent)] dark:hover:text-[var(--accent-hover)] transition" href="contact.html">Contact</a>
         </div>
         <div class="flex items-center gap-2">
-          <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-3 py-1.5 text-sm hover:shadow-soft transition"><span>🌙</span><span class="hidden sm:inline">Theme</span></button>
+          <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-3 py-1.5 text-sm hover:shadow-soft transition">
+            <span>🌙</span><span class="hidden sm:inline">Theme</span>
+          </button>
+          <a href="chat.html" class="ml-1 inline-flex items-center rounded-full bg-gradient-to-r from-[#d97706] to-[#b45309] text-white px-4 py-2 text-sm font-medium shadow-soft hover:from-[#b45309] hover:to-[#92400e] border border-[#92400e]/40">Start Chat</a>
         </div>
       </nav>
     </header>
-
-    <main class="h-[calc(100vh-4rem)]">
-      <div class="h-full grid grid-cols-12 gap-0 min-h-0">
+    <main class="h-[calc(100vh-4rem)] overflow-hidden">
+      <div class="h-full grid grid-cols-[260px_1fr] overflow-hidden">
         <!-- Sidebar -->
-        <aside class="col-span-12 md:col-span-3 lg:col-span-3 h-full min-h-0 bg-[var(--sidebar)] border-r border-[var(--border)]">
-          <div class="h-full flex flex-col">
-            <div class="px-3 py-3 flex items-center justify-between border-b border-[var(--border)]">
-              <div class="font-semibold text-sm">Conversations</div>
-              <button id="newChat" class="inline-flex items-center gap-2 text-xs rounded-full bg-gradient-to-r from-[#d97706] to-[#b45309] text-white px-3 py-1.5 shadow-soft border border-[#92400e]/40">➕ <span class="hidden sm:inline">New</span></button>
-            </div>
-            <ul id="historyList" class="flex-1 overflow-y-auto p-3 space-y-2 text-sm"></ul>
-            <div class="p-3 border-t border-[var(--border)] grid grid-cols-2 gap-2">
-              <button id="renameChat" class="text-xs rounded-lg border border-[var(--border)] px-2 py-1">Rename</button>
-              <button id="deleteChat" class="text-xs rounded-lg border border-[var(--border)] px-2 py-1">Delete</button>
-            </div>
+        <aside class="bg-[var(--sidebar)] border-r border-[var(--border)] flex flex-col overflow-hidden">
+
+        <div class="h-14 flex items-center justify-between px-4 shrink-0">
+          <span class="font-serif font-bold text-base text-[var(--text-primary)]">NyayaAI</span>
+          <div class="flex items-center gap-1">
+            <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+            </button>
+            <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
           </div>
-        </aside>
+        </div>
 
-        <!-- Chat Area -->
-        <section class="col-span-12 md:col-span-9 lg:col-span-9 h-full min-h-0">
-          <div class="h-full flex flex-col min-h-0">
-            <!-- Top bar -->
-            <div class="px-4 py-2 border-b border-[var(--border)] flex items-center justify-between">
-              <div class="font-medium">Ask NyayaAI</div>
-              <div class="flex items-center gap-3">
-                <button id="testConnection" class="text-xs rounded-lg border border-[var(--border)] px-2 py-1">Test</button>
-                <div class="text-xs text-[var(--text-muted)]">Gemini • LangChain • Web Search</div>
-              </div>
-            </div>
+        <div class="px-2 shrink-0">
+          <button id="newChat" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
+            <svg class="w-4 h-4 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            New chat
+          </button>
+        </div>
 
-            <!-- Messages -->
-            <div id="chatContainer" class="flex-1 overflow-y-auto px-4 py-4 space-y-4 min-h-0 ny-scroll">
-              <div class="text-sm text-[var(--text-muted)]">Start a conversation. Your messages and answers will appear here.</div>
-            </div>
+        <div class="px-2 mt-1 space-y-0.5 shrink-0">
+          <div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            Chats
+          </div>
+          <div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+            </svg>
+            Projects
+          </div>
+        </div>
 
-            <!-- Composer -->
-            <div class="px-3 py-2 border-t border-[var(--border)]">
-              <form id="chatForm" class="w-full">
-                <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-primary)] shadow-soft">
-                  <div class="px-3 pt-2">
-                    <textarea id="chatInput" rows="1" placeholder="Type your legal question or ask about uploaded document..." class="w-full bg-transparent focus:outline-none resize-none overflow-y-auto ny-scroll leading-6 min-h-[3rem] max-h-48 text-[15px] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]" required></textarea>
-                  </div>
-                  <div class="px-2 pb-2 pt-2 flex items-center justify-between">
-                    <div class="flex items-center gap-1 sm:gap-2">
-                      <input type="file" id="fileUpload" accept=".pdf,.txt,.doc,.docx" class="hidden" />
-                      <button type="button" id="fileUploadBtn" title="Upload document" class="text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors p-2.5 rounded-lg hover:bg-[var(--bg-tertiary)]">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                      </button>
-                      <button type="button" id="micBtn" title="Voice input (coming soon)" class="text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors p-2.5 rounded-lg hover:bg-[var(--bg-tertiary)]"><span class="text-xl font-semibold">🎤</span></button>
-                      <button type="button" id="searchToggle" title="Toggle web search" class="text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors p-2.5 rounded-lg hover:bg-[var(--bg-tertiary)]">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                      </button>
-                      <span class="hidden sm:inline text-sm font-medium text-[var(--text-secondary)] ml-1">Tools</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <span id="inputCounter" class="text-xs text-[var(--text-muted)]"></span>
-                      <button type="submit" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-[#d97706] to-[#b45309] text-white shadow-soft border border-[#92400e]/40">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
+        <div class="flex items-center justify-between px-3 py-2 mt-2 shrink-0">
+          <span class="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">Recents</span>
+          <svg class="w-4 h-4 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M6 12h12M10 18h4"/>
+          </svg>
+        </div>
+
+        <ul id="historyList" class="flex-1 overflow-y-auto px-2 space-y-0.5 ny-scroll"></ul>
+
+        <div class="hidden">
+          <button id="renameChat">Rename</button>
+          <button id="deleteChat">Delete</button>
+        </div>
+
+        <div class="flex items-center gap-3 px-3 py-4 border-t border-[var(--border)] shrink-0">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#d97706] to-[#92400e] text-white text-xs flex items-center justify-center font-bold shrink-0">RS</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-[var(--text-primary)] truncate">Rishav Singh</div>
+            <div class="text-xs text-[var(--text-muted)]">NyayaAI</div>
+          </div>
+          <div class="flex items-center">
+            <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+              </svg>
+            </button>
+            <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-3"/>
+                <path d="M16 3h5v5"/>
+                <path d="M21 3L12 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Chat Area -->
+      <main class="flex flex-col overflow-hidden min-w-0">
+        <div class="h-14 flex items-center justify-between px-4 border-b border-[var(--border)] shrink-0">
+          <div></div>
+          <div class="text-sm font-medium text-[var(--text-primary)]">NyayaAI</div>
+          <div class="flex items-center gap-2">
+            <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </button>
+            <button id="testConnection" class="text-sm font-medium px-3 py-1.5 rounded-lg border border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] transition">Test</button>
+          </div>
+        </div>
+
+        <div id="chatContainer" class="flex-1 overflow-y-auto px-4 py-6 ny-scroll">
+          <div class="flex flex-col items-center justify-center h-full text-center px-4">
+            <h2 class="font-serif text-3xl font-bold text-[var(--text-primary)] mb-3">How can I help you?</h2>
+            <p class="text-[var(--text-secondary)] text-base max-w-sm">Ask me anything about Indian law — sections, cases, rights, procedures.</p>
+          </div>
+        </div>
+
+        <div class="px-4 py-4 bg-[var(--bg-primary)] shrink-0">
+          <div class="max-w-3xl mx-auto w-full">
+            <form id="chatForm" class="w-full">
+              <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-secondary)] dark:bg-[var(--bg-tertiary)] shadow-soft focus-within:border-[var(--accent)]/50 focus-within:shadow-md transition">
+                <div class="px-4 pt-3 pb-1">
+                  <textarea id="chatInput" rows="1" placeholder="Type your legal question or ask about uploaded document..." class="w-full bg-transparent resize-none focus:outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] text-sm leading-6 min-h-[40px] max-h-40 ny-scroll" required></textarea>
                 </div>
-              </form>
-
-              <!-- File Upload Status / Chip -->
-              <div id="uploadStatus" class="hidden mt-2 text-sm"></div>
-              <div id="uploadedFile" class="hidden mt-2 p-3 bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-lg">
-                <div class="flex items-center justify-between">
+                <div class="px-3 pb-3 flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-1">
+                    <button type="button" id="fileUploadBtn" title="Upload document" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+                      </svg>
+                    </button>
+                    <button type="button" id="micBtn" title="Voice input (coming soon)" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                        <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/>
+                      </svg>
+                    </button>
+                    <button type="button" id="searchToggle" title="Toggle web search" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                      </svg>
+                    </button>
+                    <span class="text-xs text-[var(--text-muted)] ml-1">Gemini 2.5 Flash</span>
+                  </div>
                   <div class="flex items-center gap-2">
-                    <span class="text-[var(--accent)]">✅</span>
-                    <span class="text-sm font-medium text-[var(--text-primary)]" id="uploadedFileName"></span>
+                    <span id="inputCounter" class="text-xs text-[var(--text-muted)]"></span>
+                    <button type="submit" class="w-9 h-9 rounded-full bg-gradient-to-br from-[#d97706] to-[#b45309] text-white flex items-center justify-center hover:from-[#b45309] hover:to-[#92400e] transition disabled:opacity-40 shadow-soft border border-[#92400e]/40">
+                      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M12 19V5M5 12l7-7 7 7"/>
+                      </svg>
+                    </button>
                   </div>
-                  <button id="removeFile" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm">Remove</button>
                 </div>
               </div>
+              <input type="file" id="fileUpload" accept=".pdf,.txt,.doc,.docx" class="hidden" />
+            </form>
 
-              <div id="chatError" class="hidden mt-3 text-sm text-red-600"></div>
-              <div id="sourcesBar" class="hidden mt-3 text-xs text-[var(--text-muted)]"></div>
+            <div id="uploadStatus" class="hidden mt-2 text-sm max-w-3xl mx-auto"></div>
+            <div id="uploadedFile" class="hidden mt-2 px-4 py-2.5 rounded-xl bg-[var(--accent-subtle)] border border-[var(--accent)]/20 flex items-center justify-between text-sm max-w-3xl mx-auto">
+              <div class="flex items-center gap-2">
+                <span class="text-[var(--accent)]">✅</span>
+                <span class="font-medium text-[var(--text-primary)]" id="uploadedFileName"></span>
+              </div>
+              <button id="removeFile" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm">Remove</button>
             </div>
+            <div id="chatError" class="hidden mt-3 text-sm text-red-600 max-w-3xl mx-auto"></div>
+            <div id="sourcesBar" class="hidden mt-3 text-xs text-[var(--text-muted)] max-w-3xl mx-auto"></div>
           </div>
-        </section>
+        </div>
+      </main>
       </div>
     </main>
 
