@@ -1,144 +1,314 @@
-NyayaAI
-========
+# NyayaAI
 
-An AI-powered legal assistant that combines an elegant, offline-capable frontend with a Flask API backend that orchestrates Gemini + LangChain and smart web search. NyayaAI helps users ask legal questions, attach documents for context-aware answers, and browse sources when the model augments its knowledge with the web.
+NyayaAI is an AI-powered Indian legal assistant with a static frontend and a Flask backend. It is designed to help users ask legal questions, keep local conversation history, upload documents for context-aware answers, and optionally use web search to improve responses when current information is needed.
 
-Contents
-- What this project is
-- Key features
-- Architecture overview
-- Data flow / pipeline
-- Backend API (endpoints)
-- Frontend overview
-- Local development setup
-- Configuration and environment
-- Project structure
-- Logging, errors, and troubleshooting
-- Roadmap ideas
+## Overview
 
-What this project is
-- A two-part app: a static frontend with a rich chat UI, and a Flask backend exposing chat, intelligent chat with web search, document upload, and search APIs.
-- Stateless by default on the server; conversation state is stored in the browser (per session/thread) and referenced by a `session_id` when calling the backend.
+This repository contains a two-part application:
 
-Key features
-- Conversations sidebar with create/rename/delete and persistent local history.
-- Multiline, auto-resizing composer with tools (document upload placeholder, mic placeholder, web-search toggle) and keyboard shortcuts.
-- Context-aware chat when a document is attached; otherwise, intelligent mode can auto-decide to search the web.
-- Optional forced-search mode.
-- Health/status endpoints and robust error handling.
+1. A static frontend in `frontend/` built with HTML, Tailwind via CDN, and vanilla JavaScript.
+2. A Python Flask backend in `backend/` that integrates Gemini, LangChain, document text extraction, and search tooling.
 
-Architecture overview
-- Frontend (static)
-  - Plain HTML + Tailwind (via CDN) + vanilla JS (`frontend/assets/js/main.js`).
-  - Stores threads in `localStorage` and emits DOM events to synchronize UI.
-  - Talks to backend via CORS to `http://localhost:5000/api`.
-- Backend (Flask)
-  - Blueprints for chat, search, and upload (`backend/routes.py`).
-  - App factory (`backend/main.py`) sets up CORS, logging, health, and error handlers.
-  - Integrations are abstracted into helper modules: `gemini_chain.py`, `intelligent_search.py`, `search_tool.py`, and `document_loader.py`.
-- Persistence
-  - Client-side conversation state: title, messages, timestamps.
-  - Server-side memory is logical (per `session_id`), cleared via `/chat/memory`.
+The frontend handles the user experience and stores conversation threads in browser `localStorage`. The backend handles model calls, search decisions, upload processing, and per-session conversation memory.
 
-Data flow / pipeline
-1) User composes a message in the frontend.
-2) Frontend decides which endpoint to use:
-   - With an attached document: `/api/chat` with `context` text.
-   - Search toggle on: `/api/chat/force-search`.
-   - Default: `/api/chat/intelligent` (backend decides to search or not).
-3) Backend validates payload (Pydantic models), logs request, and routes to the appropriate chain:
-   - `gemini_chain.chat(...)` or `chat_with_context(...)` for pure model reasoning.
-   - `intelligent_search.intelligent_chat(...)` or `force_search_chat(...)` for search-enhanced answers.
-4) Backend responds with a normalized payload: model, timestamp, `search_used`, `search_decision`, sources, etc.
-5) Frontend renders the message, stores it to the active thread, and refreshes the sidebar.
+## Current feature set
 
-Backend API (endpoints)
-- Base URL: `http://localhost:5000`
-- Health
-  - `GET /health` → `{ status: "healthy" }`
-- Chat
-  - `POST /api/chat` (body: `{ query, session_id?, context? }`) → Model-only response; uses `context` if provided.
-  - `POST /api/chat/intelligent` (body: `{ query, session_id? }`) → Backend decides to search; returns `search_used`, `search_decision`, `sources` when applicable.
-  - `POST /api/chat/force-search` (body: `{ query, session_id? }`) → Always uses web search.
-  - `POST /api/chat/memory` (body: `{ action: 'clear'|'get_history', session_id? }`) → Manage per-session memory.
-- Search
-  - `POST /api/search` (body: `{ query, search_type?='synthesized'|'simple', max_results?, context? }`)
-  - `POST /api/search/multi` (body: `{ queries: string[], synthesize? }`)
-- Upload (placeholder but wired)
-  - `POST /api/chat/upload` (multipart `file`) → Extracted text metadata for use as chat `context`.
+- Multi-page frontend: landing, features, about, contact, and chat.
+- Chat UI with thread history, new chat, rename, delete, and theme toggle.
+- Local conversation persistence in the browser.
+- Standard chat with Gemini.
+- Context-aware chat using uploaded document text.
+- Intelligent chat mode that decides whether search is needed.
+- Forced-search mode from the frontend search toggle.
+- File upload support for `pdf`, `txt`, and `docx`.
+- Health and status endpoints for backend services.
 
-Frontend overview
-- Pages under `frontend/` with the main chat at `frontend/chat.html`.
-- Core JS at `frontend/assets/js/main.js` implements:
-  - `ThemeManager`: dark/light theme persisted to `localStorage`.
-  - `APIClient`: centralized HTTP calls with retry.
-  - `ConversationManager`: thread CRUD and history rendering.
-  - `ChatInterface`: message rendering, composer logic, search toggle, error handling.
-  - `FileUploadHandler`: document picker, upload call, and UI chip.
+## How it works
 
-Local development setup
-1) Backend
-   - Python 3.10+ recommended.
-   - Create venv and install dependencies:
-     ```bash
-     pip install -r backend/requirements.txt
-     ```
-   - Run:
-     ```bash
-     python backend/main.py
-     ```
-   - Health check: open `http://localhost:5000/health`.
-2) Frontend
-   - Open the HTML files (`frontend/chat.html`, `frontend/index.html`) directly in a browser or serve via a static server.
-   - The JS expects the backend at `http://localhost:5000` (config at top of `main.js`).
+### Frontend flow
 
-Configuration and environment
-- `backend/config.py` provides `Config` consumed by `main.py`.
-- Common envs:
-  - `PORT` (default 5000)
-  - `DEBUG` ("true" to enable Flask debug)
-  - Provider/API keys used by `gemini_chain.py` / search integrations (see those modules for details).
+- The user opens `frontend/chat.html`.
+- `frontend/assets/js/main.js` initializes the client-side app.
+- The frontend stores threads and messages in `localStorage`.
+- When the user sends a message, the frontend chooses one of these API paths:
+  - `POST /api/chat` when a document is attached
+  - `POST /api/chat/intelligent` for normal chat
+  - `POST /api/chat/force-search` when the search toggle is enabled
 
-Project structure
-```
-Nayay/
-  backend/
-    config.py                # Flask config
-    main.py                  # App factory + run
-    routes.py                # All API routes
-    gemini_chain.py          # Gemini + LangChain orchestration
-    intelligent_search.py    # Smart search-or-not decision logic
-    search_tool.py           # Web search utilities
-    document_loader.py       # File text extraction
-    requirements.txt         # Backend deps
-    README.md, SETUP.md      # Backend docs
-  frontend/
-    chat.html                # Chat UI
-    index.html, about.html, contact.html, features.html
-    assets/js/main.js        # Frontend logic
-  backend.log                # Runtime logs
-  test_connection.html       # Simple manual test page
+### Backend flow
+
+- `backend/main.py` creates the Flask app, enables CORS, configures logging, and registers routes.
+- `backend/routes.py` validates payloads using Pydantic and dispatches requests.
+- `backend/gemini_chain.py` handles normal model-backed chat and session memory.
+- `backend/intelligent_search.py` decides whether a message should trigger search.
+- `backend/search_tool.py` performs search and fallback logic.
+- `backend/document_loader.py` extracts plain text from uploaded files.
+
+## Architecture
+
+### Frontend
+
+- Static HTML pages served separately from Flask.
+- Tailwind loaded from CDN.
+- Plain JavaScript, no build step.
+- Backend URL expected by the frontend:
+
+```text
+http://localhost:5000
 ```
 
-Logging, errors, and troubleshooting
-- Logging
-  - `logging` configured in `backend/main.py` streams to console and `backend.log`.
-- Error handling
-  - JSON error responses for 404 and 500 with messages.
-  - Frontend surfaces a friendly, actionable error banner.
-- Common issues
-  - CORS/connection errors: ensure backend is running on port 5000 and matches `API_BASE_URL` in `main.js`.
-  - Uploads fail: verify backend keys/services and file type/size (see `CONFIG.ALLOWED_FILE_TYPES`).
-  - Search toggle does nothing: ensure `intelligent_search.py` and `search_tool.py` providers are configured.
+### Backend
 
-Roadmap ideas
-- Markdown/LaTeX rendering with copy/quote actions.
-- Document comparison and clause finder.
-- Per-jurisdiction knowledge controls and confidence indicators.
-- Shareable read-only conversation links and PDF/Docx exports.
-- Streaming responses, offline-ready PWA, advanced keyboard shortcuts.
+- Flask REST API.
+- CORS enabled for local frontend integration.
+- Gemini via `langchain-google-genai`.
+- LangChain-powered chat/search orchestration.
+- Lightweight document ingestion for upload context.
 
-License
-This project is provided as-is for educational and experimental use. Review third‑party model and search provider licenses/terms before production use.
+## API summary
 
+Base backend URL:
 
+```text
+http://localhost:5000
+```
+
+Important endpoints:
+
+- `GET /health`
+- `POST /api/chat`
+- `POST /api/chat/intelligent`
+- `POST /api/chat/force-search`
+- `POST /api/chat/memory`
+- `POST /api/chat/upload`
+- `POST /api/search`
+- `POST /api/search/multi`
+- `GET /api/status`
+- `GET /api/search/status`
+
+### Request patterns
+
+`POST /api/chat`
+
+```json
+{
+  "query": "What is Article 21?",
+  "session_id": "thread-id",
+  "context": "optional document text"
+}
+```
+
+`POST /api/chat/memory`
+
+```json
+{
+  "action": "clear",
+  "session_id": "thread-id"
+}
+```
+
+## Folder structure
+
+```text
+NayayAI/
+├─ backend/
+│  ├─ .env
+│  ├─ backend.log
+│  ├─ config.py
+│  ├─ document_loader.py
+│  ├─ gemini_chain.py
+│  ├─ intelligent_search.py
+│  ├─ main.py
+│  ├─ requirements.txt
+│  ├─ routes.py
+│  ├─ run.py
+│  ├─ search_tool.py
+│  ├─ README.md
+│  ├─ SETUP.md
+│  └─ test_*.py
+├─ frontend/
+│  ├─ index.html
+│  ├─ chat.html
+│  ├─ features.html
+│  ├─ about.html
+│  ├─ contact.html
+│  └─ assets/
+│     └─ js/
+│        └─ main.js
+├─ Documentation/
+├─ test_connection.html
+├─ .gitignore
+└─ README.md
+```
+
+## Configuration
+
+Backend configuration is defined in `backend/config.py` and loaded from environment variables via `python-dotenv`.
+
+Important environment variables:
+
+- `GEMINI_API_KEY`
+- `SECRET_KEY`
+- `DEBUG`
+- `PORT`
+- `LANGCHAIN_TRACING_V2`
+- `LANGCHAIN_API_KEY`
+- `LANGCHAIN_PROJECT`
+- `GEMINI_MODEL`
+- `GEMINI_TEMPERATURE`
+- `GEMINI_MAX_TOKENS`
+- `SEARCH_MAX_RESULTS`
+- `SEARCH_TIMEOUT`
+- `CONVERSATION_MEMORY_SIZE`
+
+Current default values in code include:
+
+- `PORT=5000`
+- `GEMINI_MODEL=gemini-1.5-flash`
+
+Your local `backend/.env` can override these values.
+
+## Running the project
+
+Use two terminals.
+
+### 1. Start the backend
+
+```powershell
+cd backend
+python main.py
+```
+
+Health check:
+
+```text
+http://127.0.0.1:5000/health
+```
+
+Important:
+
+- Opening `http://127.0.0.1:5000/` in a browser will return `404`.
+- That is expected because the backend is an API server, not a page server.
+
+### 2. Start the frontend
+
+```powershell
+cd frontend
+python -m http.server 8000
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000/chat.html
+```
+
+## Dependency setup
+
+The repository includes `backend/requirements.txt`, but some pinned versions may be stale or may conflict depending on the package index state and your local Python environment.
+
+If a plain requirements install fails, this compatible install set has been used successfully for the current codebase:
+
+```powershell
+python -m pip install --user flask==3.0.0 flask-cors==4.0.0 langchain==0.1.0 langchain-google-genai==1.0.1 duckduckgo-search==5.1.0 PyPDF2==3.0.1 python-docx==1.1.0 beautifulsoup4==4.12.2 pydantic==2.5.0 python-dotenv==1.0.0 requests==2.31.0 urllib3==2.1.0 structlog==23.2.0 waitress==2.1.2
+```
+
+For cleaner local development, using a dedicated virtual environment is recommended.
+
+## Frontend implementation notes
+
+`frontend/assets/js/main.js` currently contains:
+
+- backend health checking
+- API retry logic
+- search toggle handling
+- local thread management
+- document upload integration
+- connection test handling
+- UI error display
+
+The frontend now uses relative links and relative asset paths, so serving directly from the `frontend/` folder works correctly.
+
+## Backend implementation notes
+
+### `backend/gemini_chain.py`
+
+- Maintains per-session conversation memory.
+- Builds the NyayaAI legal-assistant prompt.
+- Supports normal chat and context chat.
+
+### `backend/intelligent_search.py`
+
+- Decides whether a query needs external search.
+- Routes between model-only and search-enhanced responses.
+
+### `backend/search_tool.py`
+
+- Uses DuckDuckGo as the main search tool.
+- Includes fallbacks when search fails.
+- Supports search synthesis through the LLM.
+
+### `backend/document_loader.py`
+
+- Supports lightweight extraction from:
+  - `.txt`
+  - `.pdf`
+  - `.docx`
+- Rejects legacy `.doc`.
+- Caps returned text payload size for chat use.
+
+## Logging and persistence
+
+- Backend logs are written to `backend.log` in the backend working directory.
+- Conversation threads are stored in browser `localStorage`.
+- Uploaded files are processed through temporary files and converted into text context.
+
+## Known behavior and caveats
+
+- The backend may print a LangChain deprecation warning for `initialize_agent`; it does not block startup.
+- The backend root route `/` is not implemented, so `404` there is normal.
+- Search quality depends on network availability and third-party services.
+- The frontend is static and currently has no bundler or automated build pipeline.
+- `backend/requirements.txt` likely needs cleanup for fully reproducible installs.
+
+## Git and ignored files
+
+This repository now includes a `.gitignore` that excludes common local-only files, including:
+
+- `backend/.env`
+- virtual environments such as `.venv/`
+- `__pycache__/`
+- `.log` files
+- editor folders such as `.vscode/` and `.idea/`
+
+Things that should be committed:
+
+- source code
+- HTML/JS/Python files
+- project documentation
+- safe example config files such as `.env.example`
+
+Things that should not be committed:
+
+- secrets
+- local environments
+- runtime caches
+- generated logs
+
+## Recommended next improvements
+
+- Clean up `backend/requirements.txt` so it installs reliably without manual adjustments.
+- Add a repo-safe `.env.example` if you want a shareable config template in git.
+- Add backend tests for chat, search, and upload endpoints.
+- Add a frontend smoke test.
+- Consider a one-command local startup script for frontend + backend together.
+
+## Usage note
+
+This project is best treated as an educational and experimental legal AI application unless further production hardening is added. Before production use, review:
+
+- API provider terms
+- privacy and logging behavior
+- legal accuracy requirements
+- secrets management
+- rate limits and monitoring

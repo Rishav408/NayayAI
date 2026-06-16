@@ -1,0 +1,3 @@
+# Root convenience entrypoint for Python dependencies.
+# The backend is the active Python application in this repository.
+-r backend/requirements.txt

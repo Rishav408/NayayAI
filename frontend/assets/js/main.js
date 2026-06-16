@@ -1103,7 +1103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle logo navigation
   document.querySelectorAll('a.logo-link').forEach((el) => {
     el.addEventListener('click', (e) => {
-      const isHome = location.pathname.endsWith('/frontend/index.html') || /\/frontend\/?$/.test(location.pathname);
+      const isHome = /(^|\/)index\.html$/.test(location.pathname) || /\/frontend\/?$/.test(location.pathname) || location.pathname === '/';
       if (isHome) {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
