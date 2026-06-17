@@ -97,17 +97,31 @@
       /* Sidebar conversation items - override JS-injected classes */
       #historyList li {
         border: none !important;
-        border-radius: 6px;
-        padding: 6px 12px;
+        border-radius: 6px !important;
+        padding: 7px 10px !important;
         cursor: pointer;
-        transition: background 0.15s;
+        transition: background 0.12s ease;
+        position: relative;
       }
       #historyList li:hover {
-        background: var(--bg-tertiary);
+        background: var(--bg-tertiary) !important;
       }
+      /* Active item highlight */
       #historyList li.ring-1 {
         background: var(--accent-subtle) !important;
         box-shadow: none !important;
+        outline: none !important;
+      }
+      .dark #historyList li.ring-1 {
+        background: var(--accent-subtle) !important;
+      }
+      /* Override the sub-label text color */
+      #historyList li .text-slate-500 {
+        color: var(--text-muted) !important;
+      }
+      /* Override JS-injected border classes on list items */
+      #historyList li.border {
+        border: none !important;
       }
 
       /* Message container - override JS-injected styles */
@@ -272,87 +286,89 @@
       <aside id="sidebarPanel" class="sidebar-panel" role="navigation" aria-label="Chat history">
         <div class="sidebar-inner">
 
-          <div class="h-14 flex items-center justify-between px-4 shrink-0">
-            <span class="font-serif font-bold text-base text-[var(--text-primary)]">NyayaAI</span>
-            <div class="flex items-center gap-1">
-              <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Search">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <!-- Header -->
+          <div class="h-14 flex items-center justify-between px-3 shrink-0">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-md bg-gradient-to-br from-[#d97706] to-[#92400e] text-white grid place-items-center text-sm shrink-0">⚖️</div>
+              <span class="font-serif font-bold text-sm text-[var(--text-primary)]">NyayaAI</span>
+            </div>
+            <div class="flex items-center gap-0.5">
+              <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Search chats">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                 </svg>
               </button>
-              <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="New conversation">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="New conversation" id="newChatIcon">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
                   <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
                 </svg>
               </button>
-              <button id="sidebarCloseBtn" class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition lg:hidden" aria-label="Close sidebar">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 6L6 18M6 6l12 12"/>
+              <button id="sidebarCloseBtn" class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Close sidebar">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 12h18M3 6h18M3 18h18"/>
                 </svg>
               </button>
             </div>
           </div>
 
+          <!-- New Chat Button -->
           <div class="px-2 shrink-0">
             <button id="newChat" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
-              <svg class="w-4 h-4 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg class="w-4 h-4 text-[var(--text-muted)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 5v14M5 12h14"/>
               </svg>
               New chat
             </button>
           </div>
 
-          <div class="px-2 mt-1 space-y-0.5 shrink-0">
-            <div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-              </svg>
-              Chats
-            </div>
-            <div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
-              </svg>
-              Projects
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between px-3 py-2 mt-2 shrink-0">
+          <!-- Recents Header -->
+          <div class="flex items-center justify-between px-4 pt-4 pb-1 shrink-0">
             <span class="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">Recents</span>
-            <svg class="w-4 h-4 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="w-3.5 h-3.5 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M3 6h18M6 12h12M10 18h4"/>
             </svg>
           </div>
 
-          <ul id="historyList" class="flex-1 overflow-y-auto px-2 space-y-0.5 ny-scroll"></ul>
+          <!-- History List -->
+          <ul id="historyList" class="flex-1 overflow-y-auto px-2 space-y-0.5 py-1 ny-scroll min-h-0"></ul>
 
-          <div class="hidden">
-            <button id="renameChat">Rename</button>
-            <button id="deleteChat">Delete</button>
+          <!-- Thread Actions Bar — Rename + Delete for active thread -->
+          <div class="px-2 pb-1 shrink-0">
+            <div class="flex items-center gap-1 border-t border-[var(--border)] pt-2">
+              <button id="renameChat" class="flex items-center gap-1.5 flex-1 px-3 py-2 rounded-lg text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+                <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                Rename
+              </button>
+              <button id="deleteChat" class="flex items-center gap-1.5 flex-1 px-3 py-2 rounded-lg text-xs text-[var(--text-muted)] hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition">
+                <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                  <path d="M10 11v6M14 11v6"/>
+                  <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+                </svg>
+                Delete
+              </button>
+            </div>
           </div>
 
-          <div class="flex items-center gap-3 px-3 py-4 border-t border-[var(--border)] shrink-0">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#d97706] to-[#92400e] text-white text-xs flex items-center justify-center font-bold shrink-0">RS</div>
+          <!-- User Profile Row -->
+          <div class="flex items-center gap-2.5 px-3 py-3 border-t border-[var(--border)] shrink-0">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#d97706] to-[#92400e] text-white text-xs font-bold flex items-center justify-center shrink-0 select-none">RS</div>
             <div class="flex-1 min-w-0">
-              <div class="text-sm font-medium text-[var(--text-primary)] truncate">Rishav Singh</div>
-              <div class="text-xs text-[var(--text-muted)]">NyayaAI</div>
+              <div class="text-sm font-medium text-[var(--text-primary)] truncate leading-tight">Rishav Singh</div>
+              <div class="text-xs text-[var(--text-muted)] leading-tight">Free Plan</div>
             </div>
-            <div class="flex items-center">
-              <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Export">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                </svg>
-              </button>
-              <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Settings">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-3"/>
-                  <path d="M16 3h5v5"/>
-                  <path d="M21 3L12 12"/>
-                </svg>
-              </button>
-            </div>
+            <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition shrink-0" aria-label="More options">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+              </svg>
+            </button>
           </div>
+
         </div>
       </aside>
 
