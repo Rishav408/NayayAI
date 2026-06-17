@@ -346,25 +346,87 @@ class ConversationManager {
     }
   }
 
+  clearAllThreads() {
+    this.saveThreads([]);
+    localStorage.removeItem(this.activeThreadKey);
+    this.createThread('New Chat');
+  }
+
   renderHistory() {
     const historyList = document.getElementById('historyList');
+    const chatCount = document.getElementById('chatCount');
     if (!historyList) return;
 
-    const threads = this.loadThreads();
+    const searchInput = document.getElementById('chatSearch');
+    const query = (searchInput?.value || '').trim().toLowerCase();
+    const threads = this.loadThreads()
+      .sort((a, b) => new Date(b.updatedAt || b.createdAt || 0) - new Date(a.updatedAt || a.createdAt || 0));
+
+    if (chatCount) {
+      const total = threads.length;
+      chatCount.textContent = `${total} ${total === 1 ? 'chat' : 'chats'}`;
+    }
+
     historyList.innerHTML = '';
 
-    threads.forEach((thread) => {
+    const filteredThreads = threads.filter(thread => {
+      const messagesText = (thread.messages || [])
+        .map(message => message.content || '')
+        .join(' ')
+        .toLowerCase();
+      return !query || (thread.title || '').toLowerCase().includes(query) || messagesText.includes(query);
+    });
+
+    if (filteredThreads.length === 0) {
+      const empty = document.createElement('li');
+      empty.className = 'rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-4 text-center text-xs text-[var(--text-muted)]';
+      empty.textContent = query ? 'No matching chats found' : 'No chats yet';
+      historyList.appendChild(empty);
+      return;
+    }
+
+    filteredThreads.forEach((thread) => {
       const li = document.createElement('li');
       const isActive = thread.id === this.getActiveThreadId();
+      const messageCount = thread.messages?.length || 0;
       
       li.className = `rounded-lg border border-slate-200 dark:border-slate-800 p-2 hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer transition-colors ${
         isActive ? 'ring-1 ring-royal/30 bg-royal/5' : ''
       }`;
       
-      li.innerHTML = `
-        <div class="font-medium text-sm truncate" title="${thread.title}">${thread.title}</div>
-        <div class="text-xs text-slate-500 mt-1">${thread.messages.length} messages</div>
+      const icon = document.createElement('div');
+      icon.className = 'mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--bg-tertiary)] text-[var(--accent)]';
+      icon.textContent = messageCount > 0 ? '💬' : '✦';
+
+      const content = document.createElement('div');
+      content.className = 'min-w-0 flex-1';
+
+      const title = document.createElement('div');
+      title.className = 'flex items-center gap-2 font-medium text-sm truncate';
+      title.title = thread.title || 'Untitled chat';
+
+      const titleText = document.createElement('span');
+      titleText.className = 'truncate';
+      titleText.textContent = thread.title || 'Untitled chat';
+      title.appendChild(titleText);
+
+      const dot = document.createElement('span');
+      dot.className = 'h-1 w-1 shrink-0 rounded-full bg-[var(--accent)]';
+      title.appendChild(dot);
+
+      const meta = document.createElement('div');
+      meta.className = 'mt-1 flex items-center gap-1 text-xs text-slate-500';
+      meta.innerHTML = `
+        <span>${messageCount} ${messageCount === 1 ? 'message' : 'messages'}</span>
+        <span>•</span>
+        <span>${this.getThreadDateLabel(thread)}</span>
       `;
+
+      content.appendChild(title);
+      content.appendChild(meta);
+
+      li.appendChild(icon);
+      li.appendChild(content);
       
       li.addEventListener('click', () => {
         this.setActiveThreadId(thread.id);
@@ -373,6 +435,22 @@ class ConversationManager {
       
       historyList.appendChild(li);
     });
+  }
+
+  getThreadDateLabel(thread) {
+    const date = new Date(thread.updatedAt || thread.createdAt || 0);
+    if (Number.isNaN(date.getTime())) return 'Recently';
+
+    const now = new Date();
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startOfThreadDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const diffDays = Math.floor((startOfToday - startOfThreadDay) / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays > 1 && diffDays < 7) return `${diffDays} days ago`;
+
+    return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
   }
 }
 
@@ -387,6 +465,7 @@ class ChatInterface {
     this.isLoading = false;
     this.searchEnabled = false; // Track search toggle state
     this.attachedContext = null; // { filename, text }
+    this.attachedDocument = null; // Sidebar display metadata
     this.init();
   }
 
@@ -414,6 +493,39 @@ class ChatInterface {
       this.renderMessages();
       this.clearError();
     });
+    this.setupSidebarEnhancements();
+  }
+
+  setupSidebarEnhancements() {
+    const searchInput = document.getElementById('chatSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        this.conversationManager.renderHistory();
+      });
+    }
+
+    document.querySelectorAll('[data-prompt]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const chatInput = document.getElementById('chatInput');
+        if (!chatInput) return;
+
+        chatInput.value = button.getAttribute('data-prompt') || '';
+        chatInput.focus();
+        this.autoResizeTextarea(chatInput);
+        this.updateInputCounter(chatInput);
+      });
+    });
+
+    const clearAllBtn = document.getElementById('clearAllChats');
+    if (clearAllBtn) {
+      clearAllBtn.addEventListener('click', () => {
+        if (confirm('Clear all locally saved chats? This action cannot be undone.')) {
+          this.conversationManager.clearAllThreads();
+          this.conversationManager.renderHistory();
+          this.renderMessages();
+        }
+      });
+    }
   }
 
   setupEventListeners() {
@@ -873,6 +985,9 @@ class ChatInterface {
   onDocumentAttached(detail) {
     // detail: { filename, text }
     this.attachedContext = { filename: detail.filename, text: detail.text };
+    this.attachedDocument = { filename: detail.filename };
+    this.renderSidebarDocumentCard();
+
     // Ensure web search is visually disabled
     if (this.searchEnabled) {
       this.searchEnabled = false;
@@ -887,9 +1002,25 @@ class ChatInterface {
 
   onDocumentRemoved() {
     this.attachedContext = null;
+    this.attachedDocument = null;
+    this.renderSidebarDocumentCard();
     const searchToggle = document.getElementById('searchToggle');
     if (searchToggle) {
       searchToggle.title = 'Web search disabled - Click to enable';
+    }
+  }
+
+  renderSidebarDocumentCard() {
+    const card = document.getElementById('sidebarDocumentCard');
+    const name = document.getElementById('sidebarDocumentName');
+    if (!card || !name) return;
+
+    if (this.attachedDocument?.filename) {
+      name.textContent = this.attachedDocument.filename;
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+      name.textContent = '';
     }
   }
 
@@ -1036,7 +1167,10 @@ class FileUploadHandler {
     
     if (uploadedFile && uploadedFileName) {
       uploadedFileName.textContent = filename;
-        uploadedFile.classList.remove('hidden');
+      uploadedFile.classList.remove('hidden');
+    }
+    if (this.attachedDocument) {
+      this.renderSidebarDocumentCard();
     }
   }
 

@@ -97,31 +97,80 @@
       /* Sidebar conversation items - override JS-injected classes */
       #historyList li {
         border: none !important;
-        border-radius: 6px !important;
-        padding: 7px 10px !important;
+        border-radius: 14px !important;
+        padding: 10px !important;
         cursor: pointer;
-        transition: background 0.12s ease;
+        transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease !important;
         position: relative;
+        overflow: hidden;
       }
       #historyList li:hover {
         background: var(--bg-tertiary) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px var(--shadow) !important;
       }
       /* Active item highlight */
       #historyList li.ring-1 {
-        background: var(--accent-subtle) !important;
-        box-shadow: none !important;
+        background: linear-gradient(135deg, var(--accent-subtle), var(--bg-tertiary)) !important;
+        box-shadow: 0 8px 22px var(--shadow) !important;
         outline: none !important;
       }
+      #historyList li.ring-1::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 10px;
+        bottom: 10px;
+        width: 3px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
       .dark #historyList li.ring-1 {
-        background: var(--accent-subtle) !important;
+        background: linear-gradient(135deg, var(--accent-subtle), var(--bg-tertiary)) !important;
       }
       /* Override the sub-label text color */
-      #historyList li .text-slate-500 {
+      #historyList li .text-slate-500,
+      #historyList li .text-xs {
         color: var(--text-muted) !important;
       }
       /* Override JS-injected border classes on list items */
       #historyList li.border {
         border: none !important;
+      }
+      .sidebar-card {
+        background: color-mix(in srgb, var(--bg-primary) 88%, transparent);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: 0 8px 24px var(--shadow);
+      }
+      .quick-prompt {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg-primary);
+        transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      }
+      .quick-prompt:hover {
+        transform: translateY(-1px);
+        border-color: var(--accent);
+        background: var(--accent-subtle);
+      }
+      .sidebar-input {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        outline: none;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      }
+      .sidebar-input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-subtle);
+      }
+      .sidebar-section-title {
+        color: var(--text-muted);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
       }
 
       /* Message container - override JS-injected styles */
@@ -182,9 +231,9 @@
 
       /* Sidebar collapse/expand */
       .sidebar-panel {
-        width: 260px;
+        width: 286px;
         flex-shrink: 0;
-        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -199,7 +248,7 @@
         opacity: 0;
       }
       .sidebar-inner {
-        width: 260px;
+        width: 286px;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -225,13 +274,14 @@
           top: 64px;
           bottom: 0;
           z-index: 50;
-          width: 260px;
+          width: 286px;
           transform: translateX(-100%);
-          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
           border-right: 1px solid var(--border);
+          box-shadow: 18px 0 40px rgba(0, 0, 0, 0.22);
         }
         .sidebar-panel.collapsed {
-          width: 260px;
+          width: 286px;
           transform: translateX(-100%);
         }
         .sidebar-panel.mobile-open {
@@ -287,63 +337,96 @@
         <div class="sidebar-inner">
 
           <!-- Header -->
-          <div class="h-14 flex items-center justify-between px-3 shrink-0">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-md bg-gradient-to-br from-[#d97706] to-[#92400e] text-white grid place-items-center text-sm shrink-0">⚖️</div>
-              <span class="font-serif font-bold text-sm text-[var(--text-primary)]">NyayaAI</span>
-            </div>
-            <div class="flex items-center gap-0.5">
-              <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Search chats">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="px-3 pt-3 pb-2 shrink-0">
+            <div class="sidebar-card p-3">
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <div class="flex items-center gap-2 min-w-0">
+                  <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#d97706] to-[#92400e] text-white grid place-items-center text-sm shadow-soft shrink-0">⚖️</div>
+                  <div class="min-w-0">
+                    <div class="font-serif font-bold text-sm text-[var(--text-primary)] truncate">NyayaAI</div>
+                    <div class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">Legal Assistant</div>
+                  </div>
+                </div>
+                <span class="inline-flex items-center gap-1 rounded-full bg-green-500/10 text-green-700 dark:text-green-300 px-2 py-0.5 text-[10px] font-medium">
+                  <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                  Local
+                </span>
+              </div>
+
+              <div class="relative">
+                <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                 </svg>
-              </button>
-              <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="New conversation" id="newChatIcon">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                  <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>
-              </button>
-              <button id="sidebarCloseBtn" class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Close sidebar">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M3 12h18M3 6h18M3 18h18"/>
-                </svg>
-              </button>
+                <input id="chatSearch" class="sidebar-input w-full rounded-xl pl-9 pr-3 py-2 text-xs" type="search" placeholder="Search chats..." autocomplete="off" />
+              </div>
             </div>
           </div>
 
           <!-- New Chat Button -->
-          <div class="px-2 shrink-0">
-            <button id="newChat" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
-              <svg class="w-4 h-4 text-[var(--text-muted)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="px-3 pb-2 shrink-0">
+            <button id="newChat" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[#d97706] to-[#b45309] text-white text-sm font-medium shadow-soft hover:from-[#b45309] hover:to-[#92400e] transition cursor-pointer">
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 5v14M5 12h14"/>
               </svg>
               New chat
             </button>
           </div>
 
+          <!-- Quick Prompts -->
+          <div class="px-3 pb-2 shrink-0">
+            <div class="sidebar-section-title mb-2">Quick prompts</div>
+            <div class="grid grid-cols-1 gap-1.5">
+              <button type="button" class="quick-prompt text-left px-3 py-2 text-xs text-[var(--text-secondary)]" data-prompt="Explain Article 21 of the Indian Constitution in simple words.">
+                Explain a right
+              </button>
+              <button type="button" class="quick-prompt text-left px-3 py-2 text-xs text-[var(--text-secondary)]" data-prompt="What are the key sections for filing an FIR in India?">
+                FIR basics
+              </button>
+              <button type="button" class="quick-prompt text-left px-3 py-2 text-xs text-[var(--text-secondary)]" data-prompt="Summarize this document and list the important legal points.">
+                Summarize document
+              </button>
+            </div>
+          </div>
+
           <!-- Recents Header -->
-          <div class="flex items-center justify-between px-4 pt-4 pb-1 shrink-0">
-            <span class="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">Recents</span>
-            <svg class="w-3.5 h-3.5 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 6h18M6 12h12M10 18h4"/>
-            </svg>
+          <div class="flex items-center justify-between px-3 pt-2 pb-1 shrink-0">
+            <span class="sidebar-section-title">Recents</span>
+            <span id="chatCount" class="text-[10px] text-[var(--text-muted)]">0 chats</span>
           </div>
 
           <!-- History List -->
-          <ul id="historyList" class="flex-1 overflow-y-auto px-2 space-y-0.5 py-1 ny-scroll min-h-0"></ul>
+          <ul id="historyList" class="flex-1 overflow-y-auto px-3 space-y-1.5 py-1 ny-scroll min-h-0"></ul>
+
+          <!-- Attached document summary -->
+          <div id="sidebarDocumentCard" class="hidden px-3 pb-2 shrink-0">
+            <div class="sidebar-card p-3">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <svg class="w-4 h-4 text-[var(--accent)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  <div class="min-w-0">
+                    <div class="sidebar-section-title mb-0.5">Attached</div>
+                    <div id="sidebarDocumentName" class="text-xs font-medium text-[var(--text-primary)] truncate"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-[10px] text-[var(--text-muted)]">Document context is active. Web search is disabled for this chat.</div>
+            </div>
+          </div>
 
           <!-- Thread Actions Bar — Rename + Delete for active thread -->
-          <div class="px-2 pb-1 shrink-0">
+          <div class="px-3 pb-1 shrink-0">
             <div class="flex items-center gap-1 border-t border-[var(--border)] pt-2">
-              <button id="renameChat" class="flex items-center gap-1.5 flex-1 px-3 py-2 rounded-lg text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+              <button id="renameChat" class="flex items-center justify-center gap-1.5 flex-1 px-3 py-2 rounded-lg text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
                 <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
                   <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
                 </svg>
                 Rename
               </button>
-              <button id="deleteChat" class="flex items-center gap-1.5 flex-1 px-3 py-2 rounded-lg text-xs text-[var(--text-muted)] hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition">
+              <button id="deleteChat" class="flex items-center justify-center gap-1.5 flex-1 px-3 py-2 rounded-lg text-xs text-[var(--text-secondary)] hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition">
                 <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"/>
                   <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
@@ -355,18 +438,32 @@
             </div>
           </div>
 
-          <!-- User Profile Row -->
-          <div class="flex items-center gap-2.5 px-3 py-3 border-t border-[var(--border)] shrink-0">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#d97706] to-[#92400e] text-white text-xs font-bold flex items-center justify-center shrink-0 select-none">RS</div>
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-medium text-[var(--text-primary)] truncate leading-tight">Rishav Singh</div>
-              <div class="text-xs text-[var(--text-muted)] leading-tight">Free Plan</div>
+          <!-- Storage footer -->
+          <div class="px-3 pb-2 shrink-0">
+            <div class="flex items-center justify-between gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg-tertiary)] px-3 py-2">
+              <div class="text-[10px] text-[var(--text-muted)] leading-tight">
+                Local browser storage
+              </div>
+              <button id="clearAllChats" class="text-[10px] font-medium text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition">
+                Clear all
+              </button>
             </div>
-            <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition shrink-0" aria-label="More options">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
-              </svg>
-            </button>
+          </div>
+
+          <!-- User Profile Row -->
+          <div class="mx-3 px-3 py-3 border-t border-[var(--border)] shrink-0">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#d97706] to-[#92400e] text-white text-xs font-bold flex items-center justify-center shrink-0 select-none">RS</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-sm font-medium text-[var(--text-primary)] truncate leading-tight">Rishav Singh</div>
+                <div class="text-xs text-[var(--text-muted)] leading-tight">Free Plan</div>
+              </div>
+              <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition shrink-0" aria-label="More options">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </div>
           </div>
 
         </div>
