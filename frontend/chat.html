@@ -107,7 +107,7 @@
       }
       #historyList li.ring-1 {
         background: var(--accent-subtle) !important;
-        ring: none !important;
+        box-shadow: none !important;
       }
 
       /* Message container - override JS-injected styles */
@@ -165,6 +165,84 @@
         border: none !important;
         padding: 16px 0 !important;
       }
+
+      /* Sidebar collapse/expand */
+      .sidebar-panel {
+        width: 260px;
+        flex-shrink: 0;
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: var(--sidebar);
+        border-right: 1px solid var(--border);
+      }
+      .sidebar-panel.collapsed {
+        width: 0px;
+        border-right-color: transparent;
+      }
+      .sidebar-panel.collapsed .sidebar-inner {
+        opacity: 0;
+      }
+      .sidebar-inner {
+        width: 260px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: opacity 0.15s ease;
+      }
+
+      .chat-main {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .sidebar-overlay {
+        display: none;
+      }
+
+      @media (max-width: 767px) {
+        .sidebar-panel {
+          position: fixed;
+          left: 0;
+          top: 64px;
+          bottom: 0;
+          z-index: 50;
+          width: 260px;
+          transform: translateX(-100%);
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          border-right: 1px solid var(--border);
+        }
+        .sidebar-panel.collapsed {
+          width: 260px;
+          transform: translateX(-100%);
+        }
+        .sidebar-panel.mobile-open {
+          transform: translateX(0);
+        }
+        .sidebar-panel.mobile-open .sidebar-inner {
+          opacity: 1;
+        }
+
+        .sidebar-overlay {
+          display: block;
+          position: fixed;
+          inset: 0;
+          top: 64px;
+          z-index: 49;
+          background: rgba(0, 0, 0, 0.4);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+        }
+        .sidebar-overlay.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
+      }
     </style>
     <script>(function(){const s=localStorage.getItem('theme');if(s==='dark'||(!s&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}})();</script>
   </head>
@@ -189,96 +267,111 @@
         </div>
       </nav>
     </header>
-    <main class="h-[calc(100vh-4rem)] overflow-hidden">
-      <div class="h-full grid grid-cols-[260px_1fr] overflow-hidden">
-        <!-- Sidebar -->
-        <aside class="bg-[var(--sidebar)] border-r border-[var(--border)] flex flex-col overflow-hidden">
+    <div class="h-[calc(100vh-4rem)] flex overflow-hidden">
+      <!-- Sidebar -->
+      <aside id="sidebarPanel" class="sidebar-panel" role="navigation" aria-label="Chat history">
+        <div class="sidebar-inner">
 
-        <div class="h-14 flex items-center justify-between px-4 shrink-0">
-          <span class="font-serif font-bold text-base text-[var(--text-primary)]">NyayaAI</span>
-          <div class="flex items-center gap-1">
-            <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          <div class="h-14 flex items-center justify-between px-4 shrink-0">
+            <span class="font-serif font-bold text-base text-[var(--text-primary)]">NyayaAI</span>
+            <div class="flex items-center gap-1">
+              <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Search">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+              </button>
+              <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="New conversation">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+              </button>
+              <button id="sidebarCloseBtn" class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition lg:hidden" aria-label="Close sidebar">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="px-2 shrink-0">
+            <button id="newChat" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
+              <svg class="w-4 h-4 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"/>
               </svg>
-            </button>
-            <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-              </svg>
+              New chat
             </button>
           </div>
-        </div>
 
-        <div class="px-2 shrink-0">
-          <button id="newChat" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
+          <div class="px-2 mt-1 space-y-0.5 shrink-0">
+            <div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+              </svg>
+              Chats
+            </div>
+            <div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+              </svg>
+              Projects
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between px-3 py-2 mt-2 shrink-0">
+            <span class="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">Recents</span>
             <svg class="w-4 h-4 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12h14"/>
+              <path d="M3 6h18M6 12h12M10 18h4"/>
             </svg>
-            New chat
-          </button>
-        </div>
-
-        <div class="px-2 mt-1 space-y-0.5 shrink-0">
-          <div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-            </svg>
-            Chats
           </div>
-          <div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] transition cursor-pointer">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
-            </svg>
-            Projects
+
+          <ul id="historyList" class="flex-1 overflow-y-auto px-2 space-y-0.5 ny-scroll"></ul>
+
+          <div class="hidden">
+            <button id="renameChat">Rename</button>
+            <button id="deleteChat">Delete</button>
           </div>
-        </div>
 
-        <div class="flex items-center justify-between px-3 py-2 mt-2 shrink-0">
-          <span class="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">Recents</span>
-          <svg class="w-4 h-4 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 6h18M6 12h12M10 18h4"/>
-          </svg>
-        </div>
-
-        <ul id="historyList" class="flex-1 overflow-y-auto px-2 space-y-0.5 ny-scroll"></ul>
-
-        <div class="hidden">
-          <button id="renameChat">Rename</button>
-          <button id="deleteChat">Delete</button>
-        </div>
-
-        <div class="flex items-center gap-3 px-3 py-4 border-t border-[var(--border)] shrink-0">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#d97706] to-[#92400e] text-white text-xs flex items-center justify-center font-bold shrink-0">RS</div>
-          <div class="flex-1 min-w-0">
-            <div class="text-sm font-medium text-[var(--text-primary)] truncate">Rishav Singh</div>
-            <div class="text-xs text-[var(--text-muted)]">NyayaAI</div>
-          </div>
-          <div class="flex items-center">
-            <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-              </svg>
-            </button>
-            <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-3"/>
-                <path d="M16 3h5v5"/>
-                <path d="M21 3L12 12"/>
-              </svg>
-            </button>
+          <div class="flex items-center gap-3 px-3 py-4 border-t border-[var(--border)] shrink-0">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#d97706] to-[#92400e] text-white text-xs flex items-center justify-center font-bold shrink-0">RS</div>
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-medium text-[var(--text-primary)] truncate">Rishav Singh</div>
+              <div class="text-xs text-[var(--text-muted)]">NyayaAI</div>
+            </div>
+            <div class="flex items-center">
+              <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Export">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+              </button>
+              <button class="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Settings">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-3"/>
+                  <path d="M16 3h5v5"/>
+                  <path d="M21 3L12 12"/>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </aside>
 
+      <!-- Mobile overlay backdrop -->
+      <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
       <!-- Chat Area -->
-      <main class="flex flex-col overflow-hidden min-w-0">
+      <main class="chat-main">
         <div class="h-14 flex items-center justify-between px-4 border-b border-[var(--border)] shrink-0">
-          <div></div>
+          <div class="flex items-center gap-2">
+            <button id="sidebarToggle" class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Toggle sidebar">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12h18M3 6h18M3 18h18"/>
+              </svg>
+            </button>
+          </div>
           <div class="text-sm font-medium text-[var(--text-primary)]">NyayaAI</div>
           <div class="flex items-center gap-2">
-            <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition">
+            <button class="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition" aria-label="Documents">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
                 <polyline points="14 2 14 8 20 8"/>
@@ -349,9 +442,85 @@
           </div>
         </div>
       </main>
-      </div>
-    </main>
+    </div>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var sidebar = document.getElementById('sidebarPanel');
+        var overlay = document.getElementById('sidebarOverlay');
+        var toggleBtn = document.getElementById('sidebarToggle');
+        var closeBtn = document.getElementById('sidebarCloseBtn');
+
+        function isMobile() { return window.innerWidth < 768; }
+
+        function openSidebar() {
+          if (isMobile()) {
+            sidebar.classList.remove('collapsed');
+            sidebar.classList.add('mobile-open');
+            if (overlay) overlay.classList.add('open');
+          } else {
+            sidebar.classList.remove('collapsed');
+          }
+          toggleBtn.setAttribute('aria-expanded', 'true');
+          if (closeBtn) closeBtn.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeSidebar() {
+          if (isMobile()) {
+            sidebar.classList.remove('mobile-open');
+            sidebar.classList.add('collapsed');
+            if (overlay) overlay.classList.remove('open');
+          } else {
+            sidebar.classList.add('collapsed');
+          }
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          if (closeBtn) closeBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        function toggleSidebar() {
+          if (isMobile()) {
+            if (sidebar.classList.contains('mobile-open')) {
+              closeSidebar();
+            } else {
+              openSidebar();
+            }
+          } else {
+            if (sidebar.classList.contains('collapsed')) {
+              openSidebar();
+            } else {
+              closeSidebar();
+            }
+          }
+        }
+
+        if (toggleBtn) { toggleBtn.addEventListener('click', toggleSidebar); }
+        if (closeBtn) { closeBtn.addEventListener('click', closeSidebar); }
+        if (overlay) { overlay.addEventListener('click', closeSidebar); }
+
+        toggleBtn.setAttribute('aria-controls', 'sidebarPanel');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        if (closeBtn) {
+          closeBtn.setAttribute('aria-controls', 'sidebarPanel');
+          closeBtn.setAttribute('aria-expanded', 'true');
+        }
+
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            if (isMobile()) {
+              sidebar.classList.remove('collapsed');
+              if (!sidebar.classList.contains('mobile-open')) {
+                sidebar.classList.add('collapsed');
+              }
+            } else {
+              sidebar.classList.remove('mobile-open');
+              if (overlay) overlay.classList.remove('open');
+            }
+          }, 150);
+        });
+      });
+    </script>
     <script src="assets/js/main.js"></script>
   </body>
 </html>
