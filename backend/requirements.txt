@@ -1,43 +1,49 @@
 # ============================================================
 # NyayaAI Backend — Production Requirements
-# Python 3.11 (pinned via runtime.txt + PYTHON_VERSION env var)
+# Python 3.11 (pinned via .python-version)
+#
+# STRATEGY: Use minimum version + major upper bound.
+# This lets pip resolve a compatible set automatically,
+# instead of hardcoding versions that may conflict.
 # ============================================================
 
-# Core Framework
-flask==3.0.0
-flask-cors==4.0.0
+# --- Core Framework ---
+flask>=3.0.0,<4.0
+flask-cors>=4.0.0,<5.0
 
-# LangChain 0.1.x ecosystem — pinned as a compatible set
-# langchain 0.1.x requires langchain-core >=0.1.7, so 0.1.0 causes conflicts
+# --- LangChain ecosystem ---
+# All 0.1.x packages are mutually compatible.
+# Let pip choose the exact patch versions.
 langchain>=0.1.9,<0.2
 langchain-core>=0.1.9,<0.2
 langchain-community>=0.0.20,<0.1
 
-# Google Gemini integration (must stay on 1.x — 2.x requires langchain-core 0.3+)
+# --- Google Gemini ---
+# 1.x is compatible with langchain-core 0.1.x
 langchain-google-genai>=1.0.1,<2.0
-google-generativeai>=0.3.2,<0.5
+google-generativeai>=0.3.2,<1.0
 
-# Search Tools
-duckduckgo-search==5.1.0
+# --- Search ---
+# duckduckgo-search 5.x pulls in its own lxml>=5.1.0 — that's fine
+duckduckgo-search>=5.1.0,<6.0
 
-# Document Processing
-PyPDF2==3.0.1
-python-docx==1.1.0
-beautifulsoup4==4.12.2
-lxml==4.9.3
+# --- Document Processing ---
+PyPDF2>=3.0.1,<4.0
+python-docx>=1.1.0,<2.0
+beautifulsoup4>=4.12.0,<5.0
+lxml>=5.1.0           # duckduckgo-search 5.x requires lxml>=5.1.0
 
-# Data Validation
+# --- Data Validation ---
 pydantic>=2.5.0,<3.0
 
-# Environment Management
-python-dotenv==1.0.0
+# --- Environment ---
+python-dotenv>=1.0.0,<2.0
 
-# HTTP
-requests==2.31.0
-urllib3>=2.1.0,<3.0
+# --- HTTP ---
+requests>=2.31.0,<3.0
 
-# Logging
-structlog==23.2.0
+# --- Logging ---
+structlog>=23.2.0,<25.0
 
-# Production WSGI Server
-gunicorn==21.2.0
+# --- Production WSGI Server ---
+gunicorn>=21.2.0,<23.0
