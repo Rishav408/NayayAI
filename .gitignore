@@ -60,3 +60,6 @@ desktop.ini
 uploads/
 tmp/
 temp/
+
+# Firebase
+.firebase/

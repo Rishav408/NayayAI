@@ -173,60 +173,133 @@
         text-transform: uppercase;
       }
 
-      /* Message container - override JS-injected styles */
-      #chatContainer > div {
+      /* ─── Chat stream: centered conversation layout ─────────────────── */
+      .nyaya-chat-stream {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      /* Each message row — full width, centered content column */
+      .nyaya-chat-stream > div {
+        /* Reset JS-injected box styles */
         border: none !important;
-        padding: 16px 0 !important;
         border-radius: 0 !important;
-        max-width: 48rem;
-        margin: 0 auto;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 6px 0 !important;
+
+        /* Constrain and center the content column */
+        max-width: 52rem;
         width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+        /* Override JS flex — we take over layout here */
+        display: flex !important;
+        align-items: flex-end !important;
+        gap: 0 !important;
       }
 
-      /* User messages - right-aligned pill */
-      #chatContainer > div.ml-8 {
-        display: flex;
-        justify-content: flex-end;
-      }
-      #chatContainer > div.ml-8 .flex-1 {
-        background: var(--bg-tertiary);
-        border-radius: 18px 18px 4px 18px;
-        padding: 10px 16px;
-        max-width: 75%;
+      /* Hide JS-injected avatars (preserved in DOM, invisible) */
+      .nyaya-chat-stream > div > div:first-child {
+        display: none !important;
       }
 
-      /* AI messages - left-aligned, no background */
-      #chatContainer > div.mr-8 {
-        display: flex;
-        justify-content: flex-start;
+      /* ── User messages (JS adds .ml-8) ──────────────────────────────── */
+      .nyaya-chat-stream > div.ml-8 {
+        justify-content: flex-end !important;
       }
-      #chatContainer > div.mr-8 .flex-1 {
-        max-width: 85%;
-        padding: 4px 0;
+      .nyaya-chat-stream > div.ml-8 .flex-1 {
+        /* Bubble shape */
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--accent-hover) 100%
+        ) !important;
+        color: #fff !important;
+        border-radius: 20px 20px 4px 20px !important;
+        padding: 11px 16px !important;
+        max-width: 72% !important;
+        min-width: 0;
+        box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 30%, transparent) !important;
+        /* inner label hidden for user bubbles */
+      }
+      /* Hide the "You" label inside user bubble */
+      .nyaya-chat-stream > div.ml-8 .flex-1 > div:first-child {
+        display: none !important;
+      }
+      /* User bubble body text */
+      .nyaya-chat-stream > div.ml-8 .flex-1 .mt-1 {
+        color: rgba(255, 255, 255, 0.97) !important;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        margin-top: 0 !important;
       }
 
-      /* Hide avatars */
-      #chatContainer > div.mr-8 > div:first-child {
-        display: none;
+      /* ── AI / assistant messages (JS adds .mr-8) ────────────────────── */
+      .nyaya-chat-stream > div.mr-8 {
+        justify-content: flex-start !important;
       }
-      #chatContainer > div.ml-8 > div:first-child {
-        display: none;
+      .nyaya-chat-stream > div.mr-8 .flex-1 {
+        background: var(--surface-ai) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 4px 20px 20px 20px !important;
+        padding: 12px 16px !important;
+        max-width: 84% !important;
+        min-width: 0;
+        box-shadow: 0 2px 12px var(--shadow) !important;
       }
-
-      /* AI label override */
-      #chatContainer .text-royal,
-      #chatContainer .dark\:text-blue-300 {
+      /* AI label ("NyayaAI") */
+      .nyaya-chat-stream > div.mr-8 .text-royal,
+      .nyaya-chat-stream > div.mr-8 [class*="text-blue"] {
         color: var(--accent) !important;
-        font-weight: 600;
-        font-size: 0.75rem;
-        margin-bottom: 6px;
-        display: block;
+        font-size: 0.7rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 6px !important;
+        display: block !important;
+      }
+      /* AI body text */
+      .nyaya-chat-stream > div.mr-8 .flex-1 .mt-1 {
+        color: var(--text-primary) !important;
+        font-size: 0.875rem;
+        line-height: 1.7;
       }
 
-      /* Loading state override */
-      #chatContainer > div:has(.animate-bounce) {
+      /* ── Loading / streaming state (.mr-8 with .animate-bounce) ─────── */
+      .nyaya-chat-stream > div:has(.animate-bounce) {
         border: none !important;
-        padding: 16px 0 !important;
+        background: transparent !important;
+      }
+      .nyaya-chat-stream > div:has(.animate-bounce) .flex-1 {
+        background: var(--surface-ai) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 4px 20px 20px 20px !important;
+        padding: 14px 18px !important;
+        max-width: 84% !important;
+        box-shadow: 0 2px 12px var(--shadow) !important;
+      }
+      /* Bouncing dots colour */
+      .nyaya-chat-stream .animate-bounce {
+        background: var(--accent) !important;
+        opacity: 0.7;
+      }
+
+      /* ── Welcome / empty state (centred column child) ────────────────── */
+      .nyaya-chat-stream > div.text-center {
+        max-width: 52rem;
+        justify-content: center !important;
+        padding: 20px 0 !important;
+      }
+
+      /* ── Responsive: tighter bubbles on small screens ────────────────── */
+      @media (max-width: 640px) {
+        .nyaya-chat-stream > div.ml-8 .flex-1,
+        .nyaya-chat-stream > div.mr-8 .flex-1 {
+          max-width: 90% !important;
+        }
       }
 
       /* Sidebar collapse/expand */
@@ -309,6 +382,128 @@
       }
     </style>
     <script>(function(){const s=localStorage.getItem('theme');if(s==='dark'||(!s&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}})();</script>
+
+    <!-- Cold-start awareness banner (production only) -->
+    <style>
+      #coldStartBanner {
+        position: fixed;
+        bottom: 1.25rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(120%);
+        z-index: 9999;
+        width: min(92vw, 480px);
+        background: linear-gradient(135deg, #1c1108 0%, #2a1a06 100%);
+        border: 1px solid rgba(217, 119, 6, 0.45);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(217,119,6,0.12);
+        padding: 14px 16px 14px 18px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        animation: slideUpBanner 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s forwards;
+        backdrop-filter: blur(12px);
+      }
+      @keyframes slideUpBanner {
+        to { transform: translateX(-50%) translateY(0); }
+      }
+      #coldStartBanner.hiding {
+        animation: slideDownBanner 0.3s ease forwards;
+      }
+      @keyframes slideDownBanner {
+        to { transform: translateX(-50%) translateY(140%); opacity: 0; }
+      }
+      #coldStartBanner .banner-icon {
+        font-size: 1.35rem;
+        line-height: 1;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      #coldStartBanner .banner-body {
+        flex: 1;
+        min-width: 0;
+      }
+      #coldStartBanner .banner-title {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #fbbf24;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      #coldStartBanner .banner-text {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        color: rgba(253, 230, 138, 0.82);
+        line-height: 1.5;
+      }
+      #coldStartBanner .banner-text strong {
+        color: #fde68a;
+        font-weight: 600;
+      }
+      #coldStartBanner .banner-close {
+        flex-shrink: 0;
+        background: rgba(217, 119, 6, 0.15);
+        border: 1px solid rgba(217, 119, 6, 0.3);
+        border-radius: 8px;
+        color: #fbbf24;
+        cursor: pointer;
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        transition: background 0.2s ease, border-color 0.2s ease;
+        margin-top: 1px;
+        white-space: nowrap;
+      }
+      #coldStartBanner .banner-close:hover {
+        background: rgba(217, 119, 6, 0.3);
+        border-color: rgba(217, 119, 6, 0.6);
+      }
+    </style>
+    <script>
+      (function () {
+        // Only show banner in production (not on localhost / 127.0.0.1)
+        const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        // Only show once per browser session
+        const dismissed = sessionStorage.getItem('nyaya_coldstart_dismissed');
+        if (isLocal || dismissed) return;
+
+        document.addEventListener('DOMContentLoaded', function () {
+          const banner = document.createElement('div');
+          banner.id = 'coldStartBanner';
+          banner.setAttribute('role', 'status');
+          banner.innerHTML = `
+            <div class="banner-icon">⏳</div>
+            <div class="banner-body">
+              <div class="banner-title">Heads up!</div>
+              <div class="banner-text">
+                This app runs on a <strong>free server</strong> that sleeps when idle.
+                Your <strong>first message</strong> may take up to <strong>~50 seconds</strong> to get a response while it wakes up.
+                After that, everything is fast! ⚡
+              </div>
+            </div>
+            <button class="banner-close" id="coldStartDismiss" aria-label="Dismiss notice">Got it</button>
+          `;
+          document.body.appendChild(banner);
+
+          document.getElementById('coldStartDismiss').addEventListener('click', function () {
+            banner.classList.add('hiding');
+            sessionStorage.setItem('nyaya_coldstart_dismissed', '1');
+            setTimeout(function () { banner.remove(); }, 320);
+          });
+
+          // Auto-dismiss after 18 seconds
+          setTimeout(function () {
+            if (document.getElementById('coldStartBanner')) {
+              banner.classList.add('hiding');
+              sessionStorage.setItem('nyaya_coldstart_dismissed', '1');
+              setTimeout(function () { banner.remove(); }, 320);
+            }
+          }, 18000);
+        });
+      })();
+    </script>
   </head>
   <body class="bg-[var(--bg-secondary)] text-[var(--text-primary)] dark:bg-[var(--bg-primary)] dark:text-[var(--text-primary)]">
     <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-[var(--bg-primary)]/80 border-b border-[var(--border)]">
@@ -494,7 +689,12 @@
           </div>
         </div>
 
-        <div id="chatContainer" class="flex-1 overflow-y-auto px-4 py-6 ny-scroll">
+        <div
+          id="chatContainer"
+          role="log"
+          aria-live="polite"
+          class="nyaya-chat-stream flex-1 overflow-y-auto px-4 py-6 ny-scroll"
+        >
           <div class="flex flex-col items-center justify-center h-full text-center px-4">
             <h2 class="font-serif text-3xl font-bold text-[var(--text-primary)] mb-3">How can I help you?</h2>
             <p class="text-[var(--text-secondary)] text-base max-w-sm">Ask me anything about Indian law — sections, cases, rights, procedures.</p>

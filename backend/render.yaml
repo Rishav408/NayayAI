@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: nyayaai-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn "main:create_app()" --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+    plan: free
+    envVars:
+      - key: DEBUG
+        value: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: GEMINI_TEMPERATURE
+        value: "0.7"
+      - key: GEMINI_MAX_TOKENS
+        value: "8192"
+      - key: SEARCH_MAX_RESULTS
+        value: "5"
+      - key: SEARCH_TIMEOUT
+        value: "30"
+      - key: CONVERSATION_MEMORY_SIZE
+        value: "10"
+      # IMPORTANT: Set these manually in the Render dashboard (never commit secrets!)
+      # - key: GEMINI_API_KEY
+      #   value: your_key_here
+      # - key: SECRET_KEY
+      #   value: your_secret_here
+      # - key: ALLOWED_ORIGINS
+      #   value: https://your-project.web.app

@@ -24,13 +24,18 @@ def create_app():
     # Load configuration
     app.config.from_object(Config)
     
-    # Enable CORS for frontend integration
-    # Allow all origins in development - restrict in production
-    CORS(app, 
-         origins=["*"],  # Allow all origins in development
+    # Enable CORS for frontend integration.
+    # In production, set the ALLOWED_ORIGINS env var on Render to your Firebase URL,
+    # e.g. ALLOWED_ORIGINS=https://nyayaai-abc12.web.app
+    # Locally it defaults to "*" so development is unaffected.
+    raw_origins = os.environ.get('ALLOWED_ORIGINS', '*')
+    allowed_origins = [o.strip() for o in raw_origins.split(',')] if raw_origins != '*' else ['*']
+
+    CORS(app,
+         origins=allowed_origins,
          methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
          allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
-         supports_credentials=True)
+         supports_credentials=False)  # must be False when origins != ['*']
     
     # Configure logging
     logging.basicConfig(

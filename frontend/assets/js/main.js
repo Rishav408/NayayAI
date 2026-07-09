@@ -12,9 +12,22 @@
 // CONFIGURATION & CONSTANTS
 // =============================================================================
 
+// ─── Deployment Configuration ────────────────────────────────────────────────
+// After deploying to Render, paste your Render backend URL below.
+// Example: 'https://nyayaai-backend.onrender.com'
+// Leave as empty string until you have the Render URL.
+const RENDER_BACKEND_URL = 'https://nyayaai-backend.onrender.com'; // ← UPDATE THIS after Render deploy
+
+const _isLocal = (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1'
+);
+const _backendBase = _isLocal ? 'http://localhost:5000' : RENDER_BACKEND_URL;
+// ─────────────────────────────────────────────────────────────────────────────
+
 const CONFIG = {
-  API_BASE_URL: 'http://localhost:5000/api',
-  HEALTH_CHECK_URL: 'http://localhost:5000/health',
+  API_BASE_URL: _backendBase + '/api',
+  HEALTH_CHECK_URL: _backendBase + '/health',
   MAX_FILE_SIZE: 10 * 1024 * 1024, // 10MB
   ALLOWED_FILE_TYPES: [
     'application/pdf',
