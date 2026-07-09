@@ -16,7 +16,7 @@
 // After deploying to Render, paste your Render backend URL below.
 // Example: 'https://nyayaai-backend.onrender.com'
 // Leave as empty string until you have the Render URL.
-const RENDER_BACKEND_URL = 'https://nyayaai-backend.onrender.com'; // ← UPDATE THIS after Render deploy
+const RENDER_BACKEND_URL = 'https://nyayaai-backend-qwwx.onrender.com'; // ✅ Render backend URL
 
 const _isLocal = (
   window.location.hostname === 'localhost' ||
