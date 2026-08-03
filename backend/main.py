@@ -7,7 +7,7 @@ and registers all API routes.
 
 import logging
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from config import Config
 from routes import chat_bp, search_bp, upload_bp
@@ -35,7 +35,23 @@ def create_app():
          origins=allowed_origins,
          methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
          allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
-         supports_credentials=False)  # must be False when origins != ['*']
+         expose_headers=["Content-Type"],
+         supports_credentials=False,  # must be False when origins != ['*']
+         vary_header=True)
+
+    # Ensure CORS headers are present on every response (including error responses)
+    # This is critical when running behind Render's proxy layer.
+    @app.after_request
+    def add_cors_headers(response):
+        origin = request.headers.get('Origin', '')
+        if allowed_origins == ['*']:
+            response.headers['Access-Control-Allow-Origin'] = '*'
+        elif origin in allowed_origins:
+            response.headers['Access-Control-Allow-Origin'] = origin
+            response.headers['Vary'] = 'Origin'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
+        return response
     
     # Configure logging
     logging.basicConfig(

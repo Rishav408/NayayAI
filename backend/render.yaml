@@ -26,5 +26,5 @@ services:
       #   value: your_key_here
       # - key: SECRET_KEY
       #   value: your_secret_here
-      # - key: ALLOWED_ORIGINS
-      #   value: https://your-project.web.app
+      - key: ALLOWED_ORIGINS
+        value: https://nyayaai408.web.app,https://nyayaai408.firebaseapp.com

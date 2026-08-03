@@ -650,7 +650,11 @@ class ChatInterface {
     const isHealthy = await this.apiClient.checkHealth();
     if (!isHealthy) {
       console.error('❌ Backend health check failed');
-      this.showError('⚠️ Backend server is not responding. Please make sure the server is running on port 5000.');
+      if (_isLocal) {
+        this.showError('⚠️ Backend server is not responding. Please make sure the server is running on localhost:5000.');
+      } else {
+        this.showError('⚠️ Backend server is waking up (free tier cold start). Please wait ~30–60 seconds and try again.');
+      }
     } else {
       console.log('✅ Backend connection successful');
       this.clearError();
